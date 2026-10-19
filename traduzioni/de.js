@@ -1072,4 +1072,11 @@ TRADUZIONI.de = {
   "Carte, logo e grafica sono disegnati da noi.": "Karten, Logo und Grafik haben wir selbst gestaltet.",
   "Le regole seguono lo standard internazionale dei tornei <strong>Poker TDA</strong>, aggiornato al 2026.": "Die Regeln folgen dem internationalen Turnierstandard <strong>Poker TDA</strong>, Stand 2026.",
   "Carattere: <strong>Outfit</strong>, con licenza libera SIL Open Font License.": "Schrift: <strong>Outfit</strong>, unter der freien SIL Open Font License.",
+  "Installa l'app": "App installieren",
+  "Su iPhone e iPad: tocca <strong>Condividi</strong> ⬆️ in Safari e poi <strong>«Aggiungi alla schermata Home»</strong>.": "Auf iPhone und iPad: Tippe in Safari auf <strong>Teilen</strong> ⬆️ und dann auf <strong>„Zum Home-Bildschirm“</strong>.",
+  "📲 Usa Poker Compass come un'app": "📲 Nutze Poker Compass als App",
+  "Puoi mettere Poker Compass sulla schermata del telefono o del computer, con la sua icona, come una vera app. È gratis, non serve nessuno store e <strong>funziona anche senza internet</strong>.": "Du kannst Poker Compass mit eigenem Symbol auf den Bildschirm deines Handys oder Computers legen – wie eine echte App. Kostenlos, ganz ohne Store, und <strong>es funktioniert sogar offline</strong>.",
+  "<strong>Android</strong> (Chrome): tocca il pulsante <strong>«Installa l'app»</strong> in fondo alla pagina, oppure il menu ⋮ e poi <strong>«Installa app»</strong>.": "<strong>Android</strong> (Chrome): Tippe unten auf der Seite auf <strong>„App installieren“</strong> oder im Menü ⋮ auf <strong>„App installieren“</strong>.",
+  "<strong>iPhone e iPad</strong> (Safari): tocca <strong>Condividi</strong> ⬆️ e poi <strong>«Aggiungi alla schermata Home»</strong>.": "<strong>iPhone und iPad</strong> (Safari): Tippe auf <strong>Teilen</strong> ⬆️ und dann auf <strong>„Zum Home-Bildschirm“</strong>.",
+  "<strong>Computer</strong> (Chrome o Edge): clicca l'icona di installazione nella barra dell'indirizzo, oppure il pulsante <strong>«Installa l'app»</strong> in fondo alla pagina.": "<strong>Computer</strong> (Chrome oder Edge): Klicke auf das Installations-Symbol in der Adressleiste oder unten auf der Seite auf <strong>„App installieren“</strong>.",
 };

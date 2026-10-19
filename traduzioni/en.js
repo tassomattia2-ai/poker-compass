@@ -1077,4 +1077,11 @@ TRADUZIONI.en = {
   "Carte, logo e grafica sono disegnati da noi.": "Cards, logo and graphics are designed by us.",
   "Le regole seguono lo standard internazionale dei tornei <strong>Poker TDA</strong>, aggiornato al 2026.": "The rules follow the international <strong>Poker TDA</strong> tournament standard, updated to 2026.",
   "Carattere: <strong>Outfit</strong>, con licenza libera SIL Open Font License.": "Font: <strong>Outfit</strong>, under the free SIL Open Font License.",
+  "Installa l'app": "Install the app",
+  "Su iPhone e iPad: tocca <strong>Condividi</strong> ⬆️ in Safari e poi <strong>«Aggiungi alla schermata Home»</strong>.": "On iPhone and iPad: tap <strong>Share</strong> ⬆️ in Safari, then <strong>“Add to Home Screen”</strong>.",
+  "📲 Usa Poker Compass come un'app": "📲 Use Poker Compass as an app",
+  "Puoi mettere Poker Compass sulla schermata del telefono o del computer, con la sua icona, come una vera app. È gratis, non serve nessuno store e <strong>funziona anche senza internet</strong>.": "You can put Poker Compass on your phone or computer screen, with its own icon, just like a real app. It's free, no store needed, and <strong>it works offline too</strong>.",
+  "<strong>Android</strong> (Chrome): tocca il pulsante <strong>«Installa l'app»</strong> in fondo alla pagina, oppure il menu ⋮ e poi <strong>«Installa app»</strong>.": "<strong>Android</strong> (Chrome): tap the <strong>“Install the app”</strong> button at the bottom of the page, or the ⋮ menu and then <strong>“Install app”</strong>.",
+  "<strong>iPhone e iPad</strong> (Safari): tocca <strong>Condividi</strong> ⬆️ e poi <strong>«Aggiungi alla schermata Home»</strong>.": "<strong>iPhone and iPad</strong> (Safari): tap <strong>Share</strong> ⬆️, then <strong>“Add to Home Screen”</strong>.",
+  "<strong>Computer</strong> (Chrome o Edge): clicca l'icona di installazione nella barra dell'indirizzo, oppure il pulsante <strong>«Installa l'app»</strong> in fondo alla pagina.": "<strong>Computer</strong> (Chrome or Edge): click the install icon in the address bar, or the <strong>“Install the app”</strong> button at the bottom of the page.",
 };

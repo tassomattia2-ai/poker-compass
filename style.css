@@ -1390,6 +1390,22 @@ main > .pannello + .pannello { margin-top: 16px; }
 #piede a { color: var(--accento); text-decoration: none; }
 #piede a:hover { text-decoration: underline; }
 
+/* Pulsante "Installa l'app" nel piè di pagina: una pillola menta, discreta */
+.link-installa {
+  font: inherit;
+  font-weight: 700;
+  color: var(--accento);
+  background: rgba(52, 245, 197, 0.08);
+  border: 1px solid rgba(52, 245, 197, 0.45);
+  border-radius: 999px;
+  padding: 8px 16px;
+  min-height: 40px;
+  cursor: pointer;
+}
+.link-installa:hover { background: rgba(52, 245, 197, 0.16); }
+.link-installa[hidden], .aiuto-installa[hidden] { display: none; }
+.aiuto-installa { max-width: 420px; margin: 6px auto 0; color: var(--testo); }
+
 /* Pagina Info e privacy: testo comodo da leggere */
 .testo-info { max-width: 760px; margin: 0 auto 16px; line-height: 1.6; }
 .testo-info li { margin: 6px 0; }

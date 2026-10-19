@@ -1081,4 +1081,11 @@ TRADUZIONI.fr = {
   "Carte, logo e grafica sono disegnati da noi.": "Les cartes, le logo et le graphisme sont dessinés par nous.",
   "Le regole seguono lo standard internazionale dei tornei <strong>Poker TDA</strong>, aggiornato al 2026.": "Les règles suivent le standard international des tournois <strong>Poker TDA</strong>, mis à jour en 2026.",
   "Carattere: <strong>Outfit</strong>, con licenza libera SIL Open Font License.": "Police : <strong>Outfit</strong>, sous licence libre SIL Open Font License.",
+  "Installa l'app": "Installer l'appli",
+  "Su iPhone e iPad: tocca <strong>Condividi</strong> ⬆️ in Safari e poi <strong>«Aggiungi alla schermata Home»</strong>.": "Sur iPhone et iPad : touche <strong>Partager</strong> ⬆️ dans Safari, puis <strong>« Sur l'écran d'accueil »</strong>.",
+  "📲 Usa Poker Compass come un'app": "📲 Utilise Poker Compass comme une appli",
+  "Puoi mettere Poker Compass sulla schermata del telefono o del computer, con la sua icona, come una vera app. È gratis, non serve nessuno store e <strong>funziona anche senza internet</strong>.": "Tu peux mettre Poker Compass sur l'écran de ton téléphone ou de ton ordinateur, avec son icône, comme une vraie appli. C'est gratuit, pas besoin de store, et <strong>ça marche même sans internet</strong>.",
+  "<strong>Android</strong> (Chrome): tocca il pulsante <strong>«Installa l'app»</strong> in fondo alla pagina, oppure il menu ⋮ e poi <strong>«Installa app»</strong>.": "<strong>Android</strong> (Chrome) : touche le bouton <strong>« Installer l'appli »</strong> en bas de la page, ou le menu ⋮ puis <strong>« Installer l'application »</strong>.",
+  "<strong>iPhone e iPad</strong> (Safari): tocca <strong>Condividi</strong> ⬆️ e poi <strong>«Aggiungi alla schermata Home»</strong>.": "<strong>iPhone et iPad</strong> (Safari) : touche <strong>Partager</strong> ⬆️, puis <strong>« Sur l'écran d'accueil »</strong>.",
+  "<strong>Computer</strong> (Chrome o Edge): clicca l'icona di installazione nella barra dell'indirizzo, oppure il pulsante <strong>«Installa l'app»</strong> in fondo alla pagina.": "<strong>Ordinateur</strong> (Chrome ou Edge) : clique sur l'icône d'installation dans la barre d'adresse, ou sur le bouton <strong>« Installer l'appli »</strong> en bas de la page.",
 };

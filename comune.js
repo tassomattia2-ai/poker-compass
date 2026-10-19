@@ -75,7 +75,56 @@ function disegnaPiede() {
   contenitore.innerHTML = `
     <p><strong>${t("Rispetta sempre le regole del sito o del torneo in cui giochi.")}</strong></p>
     <p>${t("App per studiare, allenarsi e organizzare le partite.")}</p>
-    <p><a href="info.html">ℹ️ ${t("Info e privacy")}</a> · © ${new Date().getFullYear()} ${NOME_SITO}</p>`;
+    <p><a href="info.html">ℹ️ ${t("Info e privacy")}</a> · © ${new Date().getFullYear()} ${NOME_SITO}</p>
+    <p><button type="button" id="installa-app" class="link-installa" hidden>📲 ${t("Installa l'app")}</button></p>
+    <p id="aiuto-iphone" class="aiuto-installa" hidden>${t("Su iPhone e iPad: tocca <strong>Condividi</strong> ⬆️ in Safari e poi <strong>«Aggiungi alla schermata Home»</strong>.")}</p>`;
+}
+
+// ---------- L'app installabile (PWA) ----------
+
+// Il service worker (sw.js) tiene una copia dei file per usare l'app senza
+// internet. Su "localhost" NON lo accendiamo, così mentre lavoriamo vediamo
+// sempre i file nuovi. Per provarlo sul computer si apre 127.0.0.1:8001.
+function avviaApp() {
+  if ("serviceWorker" in navigator && location.hostname !== "localhost") {
+    navigator.serviceWorker.register("sw.js").catch(() => { /* pazienza: il sito funziona lo stesso */ });
+  }
+
+  const pulsante = document.getElementById("installa-app");
+  if (!pulsante) return;
+
+  // Se stiamo già usando l'app installata, il pulsante non serve
+  const giaInstallata = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+  if (giaInstallata) return;
+
+  // Chrome, Edge e Android: il browser ci dà l'evento "si può installare".
+  // Lo teniamo da parte e mostriamo il pulsante.
+  let richiesta = null;
+  window.addEventListener("beforeinstallprompt", evento => {
+    evento.preventDefault();
+    richiesta = evento;
+    pulsante.hidden = false;
+  });
+
+  // iPhone e iPad non hanno quell'evento: lì si installa da Safari a mano,
+  // quindi il pulsante mostra le istruzioni.
+  const suApple = /iphone|ipad|ipod/i.test(navigator.userAgent) ||
+                  (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  if (suApple) pulsante.hidden = false;
+
+  pulsante.addEventListener("click", async () => {
+    if (richiesta) {
+      richiesta.prompt();                 // la finestra "Installa" del browser
+      await richiesta.userChoice;
+      richiesta = null;
+      pulsante.hidden = true;
+    } else {
+      document.getElementById("aiuto-iphone").hidden = false;
+    }
+  });
+
+  // Appena installata, il pulsante sparisce
+  window.addEventListener("appinstalled", () => { pulsante.hidden = true; });
 }
 
 // Sulla pagina iniziale disegniamo anche le 5 schede delle sezioni.
@@ -302,6 +351,7 @@ document.addEventListener("DOMContentLoaded", () => {
   traduciPagina();   // per primo: traduce le parti fisse della pagina (lingua.js)
   disegnaMenu();
   disegnaPiede();
+  avviaApp();        // pulsante "Installa l'app" e funzionamento senza internet
   disegnaSchedeHome();
   disegnaTitoloSezione();
   disegnaCarte();
