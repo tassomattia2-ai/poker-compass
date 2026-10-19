@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Il titolo della scheda lo scrive comune.js -->
+  <title>Poker Compass</title>
+  <!-- Le traduzioni: deve essere il primo script della pagina -->
+  <script src="lingua.js"></script>
+  <!-- L'icona nella scheda del browser: il logo (bussola con l'ago a picche) -->
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<!-- data-pagina dice a comune.js in quale sezione siamo -->
+<body data-pagina="prontuario">
+
+  <!-- Qui comune.js disegna il menu -->
+  <header id="menu"></header>
+
+  <main>
+    <!-- Qui comune.js scrive icona, nome e descrizione della sezione -->
+    <section class="eroe piccolo" id="titolo-sezione"></section>
+
+    <!-- ========================================================
+         Le schede apri/chiudi: <details> è un riquadro che si apre
+         quando tocchi il suo titolo (<summary>). Non serve codice.
+         ======================================================== -->
+    <div class="schede-prontuario">
+
+      <!-- ====================== SCHEDA 1 ====================== -->
+      <details class="scheda-apribile" id="punti">
+        <summary data-t>
+          <span class="icona-scheda">🏆</span>
+          <span>
+            <strong>Classifica dei punti</strong>
+            <small>Le 10 combinazioni, dalla regina del tavolo alla carta alta</small>
+          </span>
+        </summary>
+
+        <div class="contenuto-scheda">
+          <p data-t>
+            Alla fine della mano vince chi ha il <strong>punto più forte di 5 carte</strong>.
+            Ecco la scala del potere, dalla mano dei sogni a quella da "ci ho provato".
+            La percentuale indica quanto spesso esce quel punto usando 7 carte (le tue 2 + le 5 comuni).
+          </p>
+
+          <ol class="classifica">
+            <li>
+              <div data-t class="titolo-punto"><strong>Scala reale</strong> <em>Royal flush</em> <span class="frequenza">0,003%</span></div>
+              <div class="mano" data-carte="A♠ K♠ Q♠ J♠ 10♠"></div>
+              <p data-t>Dal 10 all'Asso, tutte dello stesso seme. Imbattibile: alcuni giocatori non la vedono in una vita intera.</p>
+            </li>
+            <li>
+              <div data-t class="titolo-punto"><strong>Scala colore</strong> <em>Straight flush</em> <span class="frequenza">0,03%</span></div>
+              <div class="mano" data-carte="9♥ 8♥ 7♥ 6♥ 5♥"></div>
+              <p data-t>5 carte in sequenza dello stesso seme. Tra due scale colore vince quella che arriva più in alto.</p>
+            </li>
+            <li>
+              <div data-t class="titolo-punto"><strong>Poker</strong> <em>Four of a kind</em> <span class="frequenza">0,17%</span></div>
+              <div class="mano" data-carte="7♣ 7♦ 7♥ 7♠ K♦"></div>
+              <p data-t>4 carte dello stesso valore. La quinta carta (il kicker) serve solo in caso di parità.</p>
+            </li>
+            <li>
+              <div data-t class="titolo-punto"><strong>Full</strong> <em>Full house</em> <span class="frequenza">2,6%</span></div>
+              <div class="mano" data-carte="10♠ 10♥ 10♦ 4♣ 4♠"></div>
+              <p data-t>Un tris più una coppia. Si legge "full di 10 con i 4": tra due full conta prima il tris.</p>
+            </li>
+            <li>
+              <div data-t class="titolo-punto"><strong>Colore</strong> <em>Flush</em> <span class="frequenza">3,0%</span></div>
+              <div class="mano" data-carte="A♦ J♦ 8♦ 6♦ 2♦"></div>
+              <p data-t>5 carte dello stesso seme, in qualsiasi ordine. Tra due colori si confronta la carta più alta, poi la seconda, e così via.</p>
+            </li>
+            <li>
+              <div data-t class="titolo-punto"><strong>Scala</strong> <em>Straight</em> <span class="frequenza">4,6%</span></div>
+              <div class="mano" data-carte="9♣ 8♦ 7♠ 6♥ 5♣"></div>
+              <p data-t>5 carte in sequenza, di semi diversi. La scala più bassa è A-2-3-4-5 (la "ruota"), la più alta 10-J-Q-K-A.</p>
+            </li>
+            <li>
+              <div data-t class="titolo-punto"><strong>Tris</strong> <em>Three of a kind</em> <span class="frequenza">4,8%</span></div>
+              <div class="mano" data-carte="Q♠ Q♥ Q♣ 9♦ 3♠"></div>
+              <p data-t>3 carte dello stesso valore. Se il tris lo formi con una coppia in mano si chiama <em>set</em>, ed è molto ben nascosto agli avversari.</p>
+            </li>
+            <li>
+              <div data-t class="titolo-punto"><strong>Doppia coppia</strong> <em>Two pair</em> <span class="frequenza">23,5%</span></div>
+              <div class="mano" data-carte="J♥ J♣ 5♠ 5♦ A♣"></div>
+              <p data-t>Due coppie diverse. Si confronta prima la coppia alta, poi quella bassa, poi il kicker.</p>
+            </li>
+            <li>
+              <div data-t class="titolo-punto"><strong>Coppia</strong> <em>One pair</em> <span class="frequenza">43,8%</span></div>
+              <div class="mano" data-carte="A♠ A♥ K♣ 8♦ 4♥"></div>
+              <p data-t>Due carte dello stesso valore. È il punto più comune: qui il kicker fa spesso la differenza.</p>
+            </li>
+            <li>
+              <div data-t class="titolo-punto"><strong>Carta alta</strong> <em>High card</em> <span class="frequenza">17,4%</span></div>
+              <div class="mano" data-carte="A♣ Q♦ 9♠ 6♥ 3♣"></div>
+              <p data-t>Nessuna combinazione: conta la carta più alta. Si dice "Asso alto".</p>
+            </li>
+          </ol>
+
+          <h3 data-t>Il valore delle carte</h3>
+          <p class="sequenza-valori">A &gt; K &gt; Q &gt; J &gt; 10 &gt; 9 &gt; 8 &gt; 7 &gt; 6 &gt; 5 &gt; 4 &gt; 3 &gt; 2</p>
+          <ul>
+            <li data-t>L'<strong>Asso</strong> è la carta più alta, ma vale anche <strong>1</strong> nella scala A-2-3-4-5.</li>
+            <li data-t>Non si "gira l'angolo": Q-K-A-2-3 <strong>non</strong> è una scala.</li>
+            <li data-t>I <strong>semi valgono tutti uguale</strong>: non spareggiano mai.</li>
+            <li data-t>Nel Texas Hold'em il <strong>full batte il colore</strong>. Nel poker all'italiana è il contrario: non confonderli!</li>
+          </ul>
+
+          <h3 data-t>Le 5 migliori su 7</h3>
+          <p data-t>Hai 7 carte a disposizione (le tue 2 + le 5 comuni) e scegli le <strong>5 migliori</strong>. Puoi usarne 2, una sola o anche nessuna delle tue.</p>
+          <div class="esempio">
+            <p data-t class="etichetta">Le tue carte</p>
+            <div class="mano" data-carte="A♥ K♥"></div>
+            <p data-t class="etichetta">Carte comuni sul tavolo</p>
+            <div class="mano" data-carte="K♠ 9♥ 4♥ 2♥ K♦"></div>
+            <p data-t class="etichetta">Il tuo punto: <strong>colore all'Asso</strong></p>
+            <div class="mano" data-carte="A♥ K♥ 9♥ 4♥ 2♥"></div>
+            <p data-t class="consiglio">💡 <strong>Occhio da campione:</strong> hai anche un tris di K (K♥ K♠ K♦), ma il colore è più forte. Scegli sempre la combinazione migliore!</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- ====================== SCHEDA 2 ====================== -->
+      <details class="scheda-apribile" id="mano">
+        <summary data-t>
+          <span class="icona-scheda">🃏</span>
+          <span>
+            <strong>Come si gioca una mano</strong>
+            <small>Posizioni, bui e i quattro giri di puntate</small>
+          </span>
+        </summary>
+
+        <div class="contenuto-scheda">
+          <h3 data-t>Chi siede dove</h3>
+          <p data-t>Ad ogni mano il <strong>bottone</strong> si sposta di un posto in senso orario. Da lui dipende tutto: chi paga i bui e chi parla per primo.</p>
+
+          <!-- Tavolo disegnato con 9 posti, in senso orario partendo dal bottone -->
+          <div class="tavolo" role="img"
+               aria-label="Tavolo da 9 giocatori, in senso orario: bottone, piccolo buio, grande buio, UTG, UTG+1, middle position, lojack, hijack e cutoff" data-t-aria>
+            <div data-t class="feltro">Tavolo</div>
+            <div data-t class="posto p1 bottone"><b>BTN</b><span>Bottone</span></div>
+            <div data-t class="posto p2"><b>SB</b><span>Piccolo buio</span></div>
+            <div data-t class="posto p3"><b>BB</b><span>Grande buio</span></div>
+            <div data-t class="posto p4"><b>UTG</b><span>Primo a parlare</span></div>
+            <div data-t class="posto p5"><b>UTG+1</b><span>Secondo</span></div>
+            <div data-t class="posto p6"><b>MP</b><span>Middle position</span></div>
+            <div data-t class="posto p7"><b>LJ</b><span>Lojack</span></div>
+            <div data-t class="posto p8"><b>HJ</b><span>Hijack</span></div>
+            <div data-t class="posto p9"><b>CO</b><span>Cutoff</span></div>
+          </div>
+          <p data-t class="etichetta">Le posizioni si dividono in tre gruppi:
+            <strong>iniziali</strong> (UTG, UTG+1, MP),
+            <strong>intermedie</strong> (LJ, HJ),
+            <strong>finali</strong> (CO, BTN). I bui (SB, BB) parlano per ultimi solo prima del flop.</p>
+
+          <ul>
+            <li data-t><strong>Piccolo buio (SB)</strong>: subito a sinistra del bottone, versa di solito metà del grande buio.</li>
+            <li data-t><strong>Grande buio (BB)</strong>: a sinistra del piccolo buio, versa la puntata obbligatoria intera.</li>
+            <li data-t><strong>Ante</strong>: in molti tornei c'è anche una quota in più. Oggi si usa il <em>Big Blind Ante</em>: la paga per tutti il grande buio.</li>
+          </ul>
+          <p data-t class="consiglio">💡 <strong>Il segreto della posizione:</strong> parlare per ultimi è un vantaggio enorme, perché vedi cosa fanno gli altri prima di decidere. Ecco perché il bottone è il posto più ambito.</p>
+
+          <h3 data-t>I passi della mano</h3>
+          <ol class="passi">
+            <li data-t><strong>Carte personali</strong>: ognuno riceve 2 carte coperte, una alla volta, partendo dal piccolo buio.</li>
+            <li data-t><strong>Pre-flop</strong>: primo giro di puntate. Apre il giocatore a sinistra del grande buio (<em>UTG</em>), chiude il grande buio, che può ancora rilanciare se nessuno l'ha fatto.</li>
+            <li data-t><strong>Flop</strong>: si scarta una carta coperta (si "brucia") e se ne girano <strong>3</strong> comuni. Secondo giro di puntate.</li>
+            <li data-t><strong>Turn</strong>: si brucia una carta e si gira la <strong>4ª</strong> comune. Terzo giro.</li>
+            <li data-t><strong>River</strong>: si brucia una carta e si gira la <strong>5ª</strong> e ultima. Quarto giro.</li>
+            <li data-t><strong>Showdown</strong>: chi è ancora in gioco mostra le carte. Vince il punto migliore.</li>
+          </ol>
+          <ul>
+            <li data-t>Dal flop in poi parla per primo il giocatore <strong>ancora in gioco più vicino alla sinistra del bottone</strong>.</li>
+            <li data-t>Se tutti gli altri passano, l'ultimo rimasto <strong>vince subito</strong> senza mostrare le carte.</li>
+          </ul>
+
+          <h3 data-t>Testa a testa (2 giocatori)</h3>
+          <p data-t>Quando restano in due le regole cambiano un po': il <strong>bottone paga il piccolo buio</strong> e parla per primo prima del flop, ma per ultimo in tutti i giri successivi.</p>
+        </div>
+      </details>
+
+      <!-- ====================== SCHEDA 3 ====================== -->
+      <details class="scheda-apribile" id="puntate">
+        <summary data-t>
+          <span class="icona-scheda">💰</span>
+          <span>
+            <strong>Puntate e casi speciali</strong>
+            <small>Rilanci, all-in, piatti laterali, pareggi</small>
+          </span>
+        </summary>
+
+        <div class="contenuto-scheda">
+          <h3 data-t>Le tue mosse</h3>
+          <dl class="mosse">
+            <dt data-t>Check</dt><dd data-t>"Busso": passi la parola senza puntare. Si può solo se nessuno ha ancora puntato in quel giro.</dd>
+            <dt data-t>Bet</dt><dd data-t>Apri la puntata quando nessuno ha ancora puntato.</dd>
+            <dt data-t>Call</dt><dd data-t>"Vedo": metti la stessa cifra della puntata più alta.</dd>
+            <dt data-t>Raise</dt><dd data-t>"Rilancio": aumenti la puntata più alta.</dd>
+            <dt data-t>Fold</dt><dd data-t>"Passo": butti le carte e rinunci al piatto.</dd>
+            <dt data-t>All-in</dt><dd data-t>Spingi al centro tutte le tue fiches.</dd>
+          </dl>
+          <p data-t>Un giro finisce quando tutti hanno parlato e chi è ancora in gioco ha messo la stessa cifra (o è all-in).</p>
+
+          <h3 data-t>Quanto puoi puntare (No-Limit)</h3>
+          <ul>
+            <li data-t><strong>Puntata minima</strong>: quanto il grande buio.</li>
+            <li data-t><strong>Puntata massima</strong>: tutte le tue fiches. Senza limiti, ecco perché si chiama "No-Limit".</li>
+            <li data-t><strong>Rilancio minimo</strong>: devi aumentare <strong>almeno</strong> quanto la puntata o il rilancio più grande di quel giro.</li>
+          </ul>
+          <div class="esempio">
+            <p data-t><strong>Esempio</strong> — bui 50/100.</p>
+            <p data-t>Anna rilancia a <strong>300</strong>: ha aggiunto 200 ai 100 del buio.<br>
+               Se Bruno vuole rilanciare, deve aggiungere almeno altri 200: minimo <strong>500</strong>.</p>
+          </div>
+          <ul>
+            <li data-t><strong>All-in "corto"</strong>: se qualcuno va all-in con meno di un rilancio completo, chi aveva già parlato <strong>non può rilanciare di nuovo</strong> (può solo vedere o passare).</li>
+            <li data-t><strong>Table stakes</strong>: si gioca solo con le fiches che hai davanti a inizio mano. Niente ricariche durante il colpo.</li>
+          </ul>
+
+          <h3 data-t>Piatti laterali (side pot)</h3>
+          <p data-t>Cosa succede se qualcuno va all-in e gli altri hanno più fiches di lui? Si creano più piatti.</p>
+          <div class="esempio">
+            <p data-t><strong>Esempio</strong> — Anna va all-in con <strong>100</strong>. Bruno e Carla puntano <strong>300</strong> a testa.</p>
+            <ul>
+              <li data-t><strong>Piatto principale: 300</strong> (100 × 3). Lo possono vincere tutti e tre.</li>
+              <li data-t><strong>Piatto laterale: 400</strong> (i 200 in più di Bruno e Carla). Se lo giocano solo loro due.</li>
+            </ul>
+            <p data-t>Se Anna ha il punto migliore vince i 300 del principale; il laterale va al migliore tra Bruno e Carla.
+               Allo showdown si assegnano prima i piatti laterali, poi il principale.</p>
+          </div>
+
+          <h3 data-t>Pareggi e kicker</h3>
+          <ul>
+            <li data-t>A parità di combinazione vince chi ce l'ha <strong>più alta</strong> (coppia di K batte coppia di Q).</li>
+            <li data-t>Se è ancora parità contano le carte rimanenti, i <strong>kicker</strong>, ma sempre e solo dentro le 5 carte del punto.</li>
+            <li data-t>Se le 5 carte hanno gli stessi valori è <strong>pareggio</strong>: il piatto si divide (<em>split pot</em>).</li>
+            <li data-t>Se il piatto non si divide in parti uguali, la <strong>fiche dispari</strong> va al giocatore più vicino alla sinistra del bottone.</li>
+          </ul>
+          <div class="esempio">
+            <p data-t class="etichetta">Carte comuni</p>
+            <div class="mano" data-carte="K♠ K♦ 8♣ 5♥ 2♠"></div>
+            <p data-t class="etichetta">Anna</p>
+            <div class="mano" data-carte="A♣ 7♦"></div>
+            <p data-t class="etichetta">Bruno</p>
+            <div class="mano" data-carte="Q♥ J♥"></div>
+            <p data-t>Tutti e due hanno la coppia di K del tavolo. Decide il kicker: <strong>l'Asso di Anna batte la Donna di Bruno</strong>. Anna vince.</p>
+          </div>
+
+          <h3 data-t>Chi mostra per primo</h3>
+          <ul>
+            <li data-t>Se al river qualcuno ha puntato, mostra per primo <strong>l'ultimo che ha puntato o rilanciato</strong>.</li>
+            <li data-t>Se al river nessuno ha puntato, si parte dal <strong>primo giocatore a sinistra del bottone</strong>.</li>
+            <li data-t><strong>Le carte parlano</strong>: conta il punto vero, anche se lo annunci sbagliato. Ma per vincere devi mostrare <strong>tutte e due</strong> le carte.</li>
+            <li data-t>Se pensi di aver perso puoi buttare le carte senza mostrarle (<em>muck</em>).</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- ====================== SCHEDA 4 ====================== -->
+      <details class="scheda-apribile" id="comportamento">
+        <summary data-t>
+          <span class="icona-scheda">🤝</span>
+          <span>
+            <strong>Comportamento al tavolo</strong>
+            <small>Il galateo del giocatore e le novità TDA 2026</small>
+          </span>
+        </summary>
+
+        <div class="contenuto-scheda">
+          <p data-t>Al tavolo si vince con le carte, ma anche con lo stile. Queste regole valgono nei tornei
+             ufficiali (regole internazionali <strong>TDA</strong>) e sono un ottimo standard anche tra amici.</p>
+
+          <h3 data-t>Le regole d'oro</h3>
+          <ul>
+            <li data-t><strong>Si parla a turno.</strong> Agire prima del proprio turno può rendere la mossa
+                vincolante o costare una penalità.</li>
+            <li data-t><strong>La parola vale.</strong> Se dici "vedo" o "rilancio a 500", devi farlo davvero.</li>
+            <li data-t><strong>Niente "string bet".</strong> Il rilancio si fa in un solo movimento, oppure lo
+                dichiari a voce prima di toccare le fiches.</li>
+            <li data-t><strong>Una fiche grande da sola = chiamata.</strong> Se metti una sola fiche più grande
+                della puntata senza dire nulla, vale come "vedo", non come rilancio.</li>
+            <li data-t><strong>Fiches in vista.</strong> Il tuo stack deve essere ben visibile e facile da contare,
+                con le fiches di valore più alto in evidenza.</li>
+            <li data-t><strong>Proteggi le tue carte.</strong> Tienile sul tavolo, magari con una fiche sopra:
+                se il mazziere te le porta via per errore, il problema è tuo.</li>
+            <li data-t><strong>Una mano, un giocatore.</strong> Vietato farsi consigliare, mostrare le carte a chi
+                è ancora in gioco o commentare la mano in corso.</li>
+            <li data-t><strong>Niente accordi tra giocatori</strong> (<em>soft play</em>): ognuno gioca per sé, sempre.</li>
+          </ul>
+
+          <h3 data-t>Novità TDA 2026</h3>
+          <ul>
+            <li data-t><strong>All-in "per sbaglio"</strong>: se il mazziere mette il segnalino all-in ma tu
+                <strong>non</strong> sei all-in, devi dirlo subito. E non puoi nascondere le fiches.</li>
+            <li data-t><strong>Linguaggio</strong>: regole più severe contro offese e provocazioni al tavolo.</li>
+            <li data-t><strong>Penalità in fiches</strong>: oltre allo "stare fuori un giro", il direttore può
+                togliere fiches dal tuo stack.</li>
+            <li data-t><strong>Elettronica</strong>: più controlli sui dispositivi al tavolo.
+                Gli <strong>occhiali smart sono vietati</strong>.</li>
+          </ul>
+
+          <h3 data-t>Se sbagli: le penalità</h3>
+          <p data-t>Dipendono dalla gravità e le decide il direttore di torneo (il <em>floor</em>):
+             <strong>avvertimento</strong> → <strong>mani saltate</strong> o <strong>penalità in fiches</strong>
+             → nei casi gravi <strong>squalifica</strong>. La decisione del floor è definitiva.</p>
+
+          <p data-t class="consiglio">💡 <strong>Stile da campione:</strong> niente <em>slow roll</em>! Se hai la mano
+             vincente allo showdown, mostrala subito: far credere all'avversario di aver vinto per poi
+             batterlo è considerato il gesto più antisportivo del poker.</p>
+        </div>
+      </details>
+
+      <!-- ====================== SCHEDA 5 ====================== -->
+      <details class="scheda-apribile" id="cash-torneo">
+        <summary data-t>
+          <span class="icona-scheda">🎟️</span>
+          <span>
+            <strong>Cash game e torneo</strong>
+            <small>Due modi di giocare, due strategie diverse</small>
+          </span>
+        </summary>
+
+        <div class="contenuto-scheda">
+          <p data-t>Le regole della mano sono le stesse, ma il "campo di gioco" cambia parecchio.</p>
+
+          <!-- Tabella di confronto: sul telefono si può scorrere di lato -->
+          <div class="tabella-scorrevole">
+            <table class="confronto">
+              <thead>
+                <tr><th></th><th data-t>💵 Cash game</th><th data-t>🏆 Torneo</th></tr>
+              </thead>
+              <tbody>
+                <tr><th data-t>Le fiches</th>
+                    <td data-t>Hanno un valore preciso</td>
+                    <td data-t>Servono solo a restare in gara</td></tr>
+                <tr><th data-t>I bui</th>
+                    <td data-t>Restano sempre uguali</td>
+                    <td data-t>Salgono a ogni livello (es. ogni 20 minuti)</td></tr>
+                <tr><th data-t>Entrare e uscire</th>
+                    <td data-t>Quando vuoi</td>
+                    <td data-t>Tutti partono insieme; esci quando perdi tutto</td></tr>
+                <tr><th data-t>Ricaricare</th>
+                    <td data-t>Puoi aggiungere fiches tra una mano e l'altra</td>
+                    <td data-t>Solo se il torneo prevede <em>rebuy</em>, <em>re-entry</em> o <em>add-on</em></td></tr>
+                <tr><th data-t>Chi vince</th>
+                    <td data-t>Ognuno tiene ciò che ha davanti quando si alza</td>
+                    <td data-t>I premi vanno ai primi classificati</td></tr>
+                <tr><th data-t>Il ritmo</th>
+                    <td data-t>Costante, puoi aspettare le mani buone</td>
+                    <td data-t>Sempre più veloce: i bui ti spingono a giocare</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 data-t>Parole da torneo</h3>
+          <dl class="mosse">
+            <dt data-t>Buy-in</dt><dd data-t>La quota di iscrizione, che ti dà lo stack iniziale.</dd>
+            <dt data-t>Livello</dt><dd data-t>Il periodo di tempo con gli stessi bui; poi si sale.</dd>
+            <dt data-t>Rebuy / Re-entry</dt><dd data-t>Ricomprare fiches o rientrare in gara dopo essere stati eliminati, se il regolamento lo permette.</dd>
+            <dt data-t>Add-on</dt><dd data-t>Fiches extra che si possono comprare una sola volta, di solito alla fine del periodo di rebuy.</dd>
+            <dt data-t>Bolla</dt><dd data-t>Il momento in cui manca un'eliminazione per entrare nei premi: la tensione è alle stelle!</dd>
+            <dt data-t>ITM (In the money)</dt><dd data-t>Essere entrati nella zona premi.</dd>
+            <dt data-t>Tavolo finale</dt><dd data-t>L'ultimo tavolo rimasto: qui si gioca per il titolo.</dd>
+          </dl>
+
+          <p data-t class="consiglio">💡 <strong>Mentalità da campione:</strong> nel cash game ogni fiche vale
+             sempre uguale; nel torneo sopravvivere conta, e più ci si avvicina ai premi, più ogni
+             fiche persa pesa. Per questo la stessa mano si gioca in modo diverso nei due formati.</p>
+
+          <p data-t class="etichetta">Ricorda: in questa app si usano solo <strong>fiches finte</strong>.</p>
+        </div>
+      </details>
+
+      <!-- ====================== SCHEDA 6 ====================== -->
+      <details class="scheda-apribile" id="glossario">
+        <summary data-t>
+          <span class="icona-scheda">📚</span>
+          <span>
+            <strong>Glossario</strong>
+            <small>Il vocabolario del tavolo, dalla A alla Z</small>
+          </span>
+        </summary>
+
+        <div class="contenuto-scheda">
+          <!-- Campo di ricerca: prontuario.js filtra le voci mentre scrivi -->
+          <label class="cerca">
+            <span>🔎</span>
+            <input type="search" id="cerca-glossario"
+                   placeholder="Cerca una parola (es. kicker, nuts...)" data-t-placeholder>
+          </label>
+          <!-- Qui prontuario.js scrive le voci del glossario -->
+          <dl id="voci-glossario" class="glossario"></dl>
+          <p data-t id="nessun-risultato" class="nessun-risultato" hidden>
+            Nessuna parola trovata. Prova con un altro termine!
+          </p>
+        </div>
+      </details>
+
+    </div>
+  </main>
+
+  <!-- Qui comune.js disegna il piè di pagina con l'avviso -->
+  <footer id="piede"></footer>
+
+  <script src="comune.js"></script>
+  <script src="prontuario.js"></script>
+</body>
+</html>

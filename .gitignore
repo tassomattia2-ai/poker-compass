@@ -1,0 +1,7 @@
+# File di lavoro: restano sul computer, NON vanno pubblicati sul sito
+CLAUDE.md
+REGOLE-TEXAS-HOLDEM.md
+server.py
+avvia-sito.bat
+strumenti/
+__pycache__/

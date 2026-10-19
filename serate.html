@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Il titolo della scheda lo scrive comune.js -->
+  <title>Poker Compass</title>
+  <!-- Le traduzioni: deve essere il primo script della pagina -->
+  <script src="lingua.js"></script>
+  <!-- L'icona nella scheda del browser: il logo (bussola con l'ago a picche) -->
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<!-- data-pagina dice a comune.js in quale sezione siamo -->
+<body data-pagina="serate">
+
+  <!-- Qui comune.js disegna il menu -->
+  <header id="menu"></header>
+
+  <main>
+    <!-- Qui comune.js scrive icona, nome e descrizione della sezione -->
+    <section class="eroe piccolo" id="titolo-sezione"></section>
+
+    <!-- ===== 1. Il timer dei bui ===== -->
+    <section class="pannello timer" id="timer" aria-label="Timer dei bui" data-t-aria>
+      <!-- Lo riempie serate.js -->
+    </section>
+
+    <!-- ===== 2. I giocatori e la classifica della serata ===== -->
+    <section class="pannello">
+      <h2 data-t class="titolo-pannello">👥 Giocatori e fiches</h2>
+      <form id="aggiungi-giocatore" class="aggiungi-giocatore" autocomplete="off">
+        <input type="text" id="nome-giocatore" class="campo-testo" placeholder="Nome del giocatore" maxlength="30" aria-label="Nome del giocatore" data-t-aria data-t-placeholder>
+        <button data-t type="submit" class="pulsante-principale">+ Aggiungi</button>
+      </form>
+      <div id="conto-fiches" class="conto-fiches" aria-live="polite"></div>
+      <div id="elenco-giocatori" class="elenco-giocatori"></div>
+      <p data-t class="aiuto">Scrivi le fiches di ognuno quando le contate (per esempio alla pausa).
+        Quando un giocatore resta senza fiches tocca <strong>💀 Fuori</strong>: la classifica si compone da sola.</p>
+    </section>
+
+    <!-- ===== 2b. I tavoli e i posti ===== -->
+    <section class="pannello modulo" id="pannello-tavoli">
+      <h2 data-t class="titolo-pannello">🪑 Tavoli e posti</h2>
+      <p data-t class="aiuto">I giocatori si aggiungono in <strong>👥 Giocatori e fiches</strong>, qui sopra:
+        qui li fai sedere ai tavoli. Chi esce libera il suo posto, chi rientra aspetta un posto nuovo.</p>
+      <div class="campi">
+        <label><span data-t>Posti per tavolo</span>
+          <select id="posti-tavolo">
+            <option value="2">2</option><option value="3">3</option><option value="4">4</option>
+            <option value="5">5</option><option value="6">6</option><option value="7">7</option>
+            <option value="8">8</option><option value="9">9</option><option value="10">10</option>
+          </select>
+        </label>
+      </div>
+      <div class="pulsanti-mano">
+        <button data-t type="button" class="pulsante-principale" id="sorteggia-posti">🎲 Sorteggia tutti i posti</button>
+        <button data-t type="button" class="pulsante-secondario" id="aggiungi-tavolo">+ Tavolo</button>
+      </div>
+      <!-- Qui serate.js scrive gli avvisi: chi spostare, quale tavolo chiudere -->
+      <div id="avviso-tavoli" class="avviso-tavoli" aria-live="polite"></div>
+      <div id="elenco-tavoli" class="elenco-tavoli"></div>
+      <p data-t class="aiuto">Due modi: <strong>🎲 sorteggio</strong> (l'app divide i giocatori tra i tavoli e dà a ognuno un posto)
+        oppure <strong>a mano</strong>, scegliendo tavolo e posto dal menu accanto a ogni nome.
+        Quando i giocatori calano, l'app ti dice chi spostare e quando chiudere un tavolo, fino al tavolo finale: tu confermi.</p>
+    </section>
+
+    <!-- ===== 3. La struttura dei bui ===== -->
+    <section class="pannello modulo">
+      <h2 data-t class="titolo-pannello">🧱 Struttura dei bui</h2>
+      <div class="campi">
+        <label><span data-t>Ritmo della serata</span>
+          <select id="scelta-ritmo">
+            <option data-t value="10">⚡ Veloce · livelli da 10 minuti</option>
+            <option data-t value="15" selected>♣ Normale · livelli da 15 minuti</option>
+            <option data-t value="20">🐢 Lenta · livelli da 20 minuti</option>
+          </select>
+        </label>
+        <label><span data-t>Fiches iniziali per giocatore</span>
+          <input type="number" id="stack-iniziale" min="100" step="100" inputmode="numeric">
+        </label>
+      </div>
+      <div class="pulsanti-mano">
+        <button data-t type="button" class="pulsante-secondario" id="applica-ritmo">↺ Crea la struttura consigliata</button>
+      </div>
+      <div class="tabella-scorrevole">
+        <table class="confronto tabella-livelli">
+          <thead><tr><th data-t>Livello</th><th data-t>Piccolo buio</th><th data-t>Grande buio</th><th data-t>Ante (BB)</th><th data-t>Minuti</th><th></th></tr></thead>
+          <tbody id="righe-livelli"></tbody>
+        </table>
+      </div>
+      <div class="pulsanti-mano">
+        <button data-t type="button" class="pulsante-secondario" id="aggiungi-livello">+ Livello</button>
+        <button data-t type="button" class="pulsante-secondario" id="aggiungi-pausa">☕ + Pausa</button>
+      </div>
+      <p data-t class="aiuto">"Ante (BB)" è il <em>Big Blind Ante</em>: lo paga il grande buio per tutto il tavolo.
+        Puoi cambiare ogni numero: il timer usa subito la struttura nuova.</p>
+    </section>
+
+    <!-- ===== 4. Il campionato tra amici ===== -->
+    <section class="pannello">
+      <h2 data-t class="titolo-pannello">🏅 Campionato tra amici</h2>
+      <p data-t class="aiuto">A fine serata salva la classifica: i punti si sommano serata dopo serata.
+        Punti: chi arriva ultimo ne prende 1, il penultimo 2… il vincitore tanti quanti sono i giocatori.</p>
+      <div class="pulsanti-mano">
+        <button data-t type="button" class="pulsante-principale" id="chiudi-serata">🏁 Chiudi la serata e salva i punti</button>
+        <button data-t type="button" class="pulsante-secondario" id="nuova-serata">🃏 Nuova serata (stessi giocatori)</button>
+      </div>
+      <p class="aiuto" id="esito-campionato" aria-live="polite"></p>
+      <div id="classifica-campionato"></div>
+    </section>
+  </main>
+
+  <!-- Qui comune.js disegna il piè di pagina con l'avviso -->
+  <footer id="piede"></footer>
+
+  <script src="comune.js"></script>
+  <script src="serate.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Il titolo della scheda lo scrive comune.js -->
+  <title>Poker Compass</title>
+  <!-- Le traduzioni: deve essere il primo script della pagina -->
+  <script src="lingua.js"></script>
+  <!-- L'icona nella scheda del browser: il logo (bussola con l'ago a picche) -->
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<!-- data-pagina dice a comune.js in quale sezione siamo -->
+<body data-pagina="allenamento">
+
+  <!-- Qui comune.js disegna il menu -->
+  <header id="menu"></header>
+
+  <main>
+    <!-- Qui comune.js scrive icona, nome e descrizione della sezione -->
+    <section class="eroe piccolo" id="titolo-sezione"></section>
+
+    <!-- ===== 1. La scelta dell'allenamento ===== -->
+    <section class="pannello">
+      <h2 data-t class="titolo-pannello">1 · Scegli l'allenamento</h2>
+      <!-- Le schede dei 5 allenamenti: le disegna allenamento.js -->
+      <div class="scelta-quiz" id="scelta-quiz"></div>
+      <p data-t class="aiuto">Ogni partita è di <strong>10 domande</strong>. Il tuo record resta salvato su questo dispositivo.</p>
+    </section>
+
+    <!-- ===== 2. Il quiz ===== -->
+    <section class="pannello quiz" id="quiz" aria-live="polite">
+      <!-- Lo riempie allenamento.js -->
+    </section>
+  </main>
+
+  <!-- Qui comune.js disegna il piè di pagina con l'avviso -->
+  <footer id="piede"></footer>
+
+  <script src="comune.js"></script>
+  <script src="valutatore.js"></script>
+  <script src="dati-mani-iniziali.js"></script>
+  <script src="domande-regole.js"></script>
+  <script src="allenamento.js"></script>
+</body>
+</html>

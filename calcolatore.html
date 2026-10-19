@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Il titolo della scheda lo scrive comune.js -->
+  <title>Poker Compass</title>
+  <!-- Le traduzioni: deve essere il primo script della pagina -->
+  <script src="lingua.js"></script>
+  <!-- L'icona nella scheda del browser: il logo (bussola con l'ago a picche) -->
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<!-- data-pagina dice a comune.js in quale sezione siamo -->
+<body data-pagina="calcolatore">
+
+  <!-- Qui comune.js disegna il menu -->
+  <header id="menu"></header>
+
+  <main>
+    <!-- Qui comune.js scrive icona, nome e descrizione della sezione -->
+    <section class="eroe piccolo" id="titolo-sezione"></section>
+
+    <div class="calcolatore">
+
+      <!-- ===== 1. Le scelte: fase della mano e numero di giocatori ===== -->
+      <section class="pannello">
+        <h2 data-t class="titolo-pannello">1 · A che punto è la mano?</h2>
+        <!-- Pulsanti della fase: li gestisce calcolatore.js -->
+        <div class="pulsanti-scelta" id="scelta-fase" role="radiogroup" aria-label="Fase della mano" data-t-aria>
+          <button data-t type="button" data-fase="preflop">Pre-flop</button>
+          <button data-t type="button" data-fase="flop">Flop</button>
+          <button data-t type="button" data-fase="turn">Turn</button>
+          <button data-t type="button" data-fase="river">River</button>
+        </div>
+
+        <h2 data-t class="titolo-pannello">2 · Quanti giocatori sono ancora in gioco? <small>(te compreso)</small></h2>
+        <div class="pulsanti-scelta" id="scelta-giocatori" role="radiogroup" aria-label="Numero di giocatori" data-t-aria></div>
+      </section>
+
+      <!-- ===== 2. Le carte scelte ===== -->
+      <section class="pannello">
+        <h2 data-t class="titolo-pannello">3 · Scegli le carte</h2>
+        <div class="posti-carte">
+          <div>
+            <p data-t class="etichetta">Le tue carte</p>
+            <div class="fila-posti" id="posti-mie"></div>
+          </div>
+          <div>
+            <p data-t class="etichetta">Carte comuni</p>
+            <div class="fila-posti" id="posti-tavolo"></div>
+          </div>
+        </div>
+        <p data-t class="aiuto">Tocca le carte qui sotto: prima le tue 2, poi quelle comuni (flop, turn, river).
+          La fase avanza da sola e la percentuale si aggiorna a ogni carta.
+          Tocca una carta già scelta per toglierla.</p>
+
+        <!-- Il mazzo completo da cui scegliere: lo disegna calcolatore.js -->
+        <div class="mazzo-scelta" id="mazzo-scelta"></div>
+
+        <div class="pulsanti-mano">
+          <button data-t type="button" class="pulsante-secondario" id="mano-precedente" disabled>← Mano precedente</button>
+          <button data-t type="button" class="pulsante-secondario" id="nuova-mano">↺ Nuova mano</button>
+        </div>
+      </section>
+
+      <!-- Colonna di destra (sul telefono va sotto): risultato, outs, pot odds -->
+      <div class="colonna-destra">
+
+        <!-- ===== 3. Il risultato ===== -->
+        <section class="pannello risultato" id="risultato" aria-live="polite">
+          <!-- Lo riempie calcolatore.js -->
+        </section>
+
+        <!-- ===== 4. Gli outs ===== -->
+        <section class="pannello" id="outs">
+          <!-- Lo riempie calcolatore.js (solo al flop e al turn) -->
+        </section>
+
+        <!-- ===== 5. Le pot odds ===== -->
+        <section class="pannello">
+          <h2 data-t class="titolo-pannello">💰 Ti conviene vedere?</h2>
+          <p data-t class="aiuto">Scrivi quanto c'è nel piatto (puntate di questo giro comprese) e quanto devi mettere per vedere.</p>
+          <div class="campi-pot">
+            <label><span data-t>Nel piatto</span>
+              <input type="number" id="pot-piatto" min="0" step="any" inputmode="decimal" placeholder="es. 300" data-t-placeholder>
+            </label>
+            <label><span data-t>Da pagare</span>
+              <input type="number" id="pot-puntata" min="0" step="any" inputmode="decimal" placeholder="es. 100" data-t-placeholder>
+            </label>
+          </div>
+          <div id="pot-esito" aria-live="polite"></div>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- ===== 6. La tabella delle 169 mani iniziali ===== -->
+    <section class="pannello tabella-mani">
+      <h2 data-t class="titolo-pannello">📊 Le 169 mani iniziali</h2>
+      <p class="aiuto" id="spiega-tabella">
+        <!-- Lo scrive calcolatore.js -->
+      </p>
+      <div data-t class="legenda-tabella">
+        <span><b class="campione s"></b>Sopra la diagonale: stesso seme (<em>s</em>)</span>
+        <span><b class="campione p"></b>Diagonale: coppie</span>
+        <span><b class="campione o"></b>Sotto: semi diversi (<em>o</em>)</span>
+      </div>
+      <!-- La griglia 13×13: la disegna calcolatore.js -->
+      <div class="griglia-mani" id="griglia-mani"></div>
+      <p data-t class="aiuto">Tocca una mano per metterla nel calcolatore. Colori: dal 🟥 sotto la media al 🟩 molto sopra la media del tavolo.</p>
+    </section>
+  </main>
+
+  <!-- Qui comune.js disegna il piè di pagina con l'avviso -->
+  <footer id="piede"></footer>
+
+  <script src="comune.js"></script>
+  <script src="valutatore.js"></script>
+  <script src="dati-mani-iniziali.js"></script>
+  <script src="calcolatore.js"></script>
+</body>
+</html>

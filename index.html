@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Poker Compass</title>
+  <!-- Le traduzioni: deve essere il primo script della pagina -->
+  <script src="lingua.js"></script>
+  <!-- L'icona nella scheda del browser: il logo (bussola con l'ago a picche) -->
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<!-- data-pagina dice a comune.js in quale pagina siamo -->
+<body data-pagina="home">
+
+  <!-- Qui comune.js disegna il menu -->
+  <header id="menu"></header>
+
+  <main>
+    <!-- Titolo grande: con data-parallasse si muove più lento della pagina -->
+    <section class="eroe">
+      <div class="eroe-testo" data-parallasse="0.35">
+        <!-- Il "logo": un ventaglio con i 4 assi, carte disegnate da noi (comune.js le trasforma in carte) -->
+        <div class="mano ventaglio" data-carte="A♠ A♥ A♦ A♣" aria-hidden="true"></div>
+        <span data-t class="etichetta-eroe">Texas Hold'em</span>
+        <!-- Il nome del sito (scelto dall'utente): uguale in tutte le lingue -->
+        <h1>Poker Compass</h1>
+        <p class="sottotitolo" data-t>
+          Studia, allenati e organizza le tue partite.
+        </p>
+        <div class="scorri" aria-hidden="true">▼</div>
+      </div>
+    </section>
+
+    <!-- Qui comune.js disegna le 5 schede delle sezioni -->
+    <section id="schede"></section>
+  </main>
+
+  <!-- Qui comune.js disegna il piè di pagina con l'avviso -->
+  <footer id="piede"></footer>
+
+  <script src="comune.js"></script>
+</body>
+</html>

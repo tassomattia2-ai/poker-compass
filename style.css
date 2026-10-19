@@ -1,0 +1,1461 @@
+/* ============================================================
+   style.css — l'aspetto grafico di tutto il sito.
+   Stile "Smeraldo moderno" (scelto dall'utente il 16 ottobre 2026):
+   verde smeraldo sfumato, accento menta, pulsanti corallo,
+   riquadri di vetro smerigliato. Sempre con la parallasse.
+   I colori sono raccolti qui in cima (le "variabili"),
+   così per cambiarli basta modificarli in un punto solo.
+   ============================================================ */
+
+/* Il carattere "Outfit" (gratuito, da Google Fonts): moderno e rotondo.
+   Se manca la connessione si usa il carattere del sistema. */
+/* Il carattere Outfit (licenza libera SIL Open Font License) è copiato nella
+   cartella "caratteri": così il sito non chiede niente ai server di Google
+   (meglio per la privacy dei visitatori). Un solo file contiene tutti gli spessori. */
+@font-face {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("caratteri/outfit-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("caratteri/outfit-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+:root {
+  --sfondo:         #04221a;  /* smeraldo profondissimo */
+  --sfondo-2:       #0a4a3a;  /* smeraldo più chiaro (per la sfumatura) */
+  --sfondo-scheda:  rgba(255, 255, 255, 0.06);  /* vetro: lascia vedere lo sfondo */
+  --vetro-forte:    rgba(6, 40, 31, 0.72);      /* vetro più "pieno" (menu, fumetti) */
+  --testo:          #f2fbf7;  /* bianco con un filo di verde */
+  --testo-tenue:    #a7c9bd;  /* per i testi secondari */
+  --accento:        #34f5c5;  /* menta: titoli, evidenze, scelte attive */
+  --corallo:        #ff7a59;  /* corallo: i pulsanti principali */
+  --corallo-2:      #ff5470;  /* corallo più rosato (per la sfumatura) */
+  --su-colore:      #03251c;  /* testo scuro sopra menta e corallo */
+  --bordo:          rgba(255, 255, 255, 0.12);
+  --positivo:       #4ade80;  /* verde: vinci, risposta giusta */
+  --negativo:       #ff6b81;  /* rosso: perdi, risposta sbagliata */
+  --seme-rosso:     #ff7a59;  /* ♥ ♦ dello sfondo in parallasse */
+  --seme-nero:      #34f5c5;  /* ♠ ♣ dello sfondo in parallasse */
+  --raggio:         20px;     /* angoli dei riquadri */
+  --ombra:          0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* Impostazioni di base valide per tutto */
+* { box-sizing: border-box; }
+
+html { color-scheme: dark; }
+
+body {
+  margin: 0;
+  /* Sfondo: due "luci" morbide (menta e corallo) sopra una sfumatura smeraldo */
+  background:
+    radial-gradient(900px 600px at 0% -10%, rgba(52, 245, 197, 0.16), transparent 60%),
+    radial-gradient(800px 500px at 100% 10%, rgba(255, 122, 89, 0.12), transparent 60%),
+    linear-gradient(165deg, var(--sfondo) 0%, var(--sfondo-2) 55%, var(--sfondo) 100%);
+  background-attachment: fixed;
+  background-color: var(--sfondo);
+  color: var(--testo);
+  font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  /* Il piè di pagina resta in fondo anche se la pagina è corta */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Il colore del testo selezionato */
+::selection { background: var(--accento); color: var(--su-colore); }
+
+/* Il contorno che si vede quando ci si muove con la tastiera */
+:focus-visible { outline: 2px solid var(--accento); outline-offset: 2px; }
+
+/* ---------- Menu in alto ---------- */
+#menu {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 16px;
+  background: rgba(4, 34, 26, 0.6);
+  border-bottom: 1px solid var(--bordo);
+  /* Il menu resta visibile mentre si scorre la pagina */
+  position: sticky;
+  top: 0;
+  z-index: 10;                /* sempre sopra a tutto */
+  backdrop-filter: blur(16px) saturate(1.4); /* vetro smerigliato */
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+}
+
+#menu a { color: var(--testo); text-decoration: none; }
+
+/* Il logo di Poker Compass: la bussola con l'ago a picche (logo.svg)
+   e accanto la sigla "P.C." con la sfumatura menta → corallo */
+#menu .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+}
+#menu .logo img {
+  display: block;
+  filter: drop-shadow(0 0 8px rgba(52, 245, 197, 0.35));
+  transition: transform 0.4s;
+}
+/* Al passaggio del mouse la bussola fa un giro completo */
+#menu .logo:hover img { transform: rotate(360deg); }
+#menu .sigla-logo {
+  font-weight: 900;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  background: linear-gradient(90deg, var(--accento), var(--corallo));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+#menu .voci { display: flex; gap: 4px; flex-wrap: wrap; }
+
+#menu .voci a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;      /* a pillola */
+  font-weight: 500;
+  color: var(--testo-tenue);
+  transition: background 0.2s, color 0.2s;
+}
+
+#menu .voci a:hover { background: rgba(255, 255, 255, 0.08); color: var(--testo); }
+
+/* La voce della pagina in cui ci troviamo */
+#menu .voci a[aria-current="page"] {
+  background: rgba(52, 245, 197, 0.14);
+  color: var(--accento);
+  box-shadow: inset 0 0 0 1px rgba(52, 245, 197, 0.35);
+}
+
+/* La scelta della lingua, in alto a destra (margin-left: auto la spinge a destra) */
+.scelta-lingua {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.scelta-lingua select {
+  width: auto;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--bordo);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--testo);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.scelta-lingua select:hover { border-color: var(--accento); }
+/* Le voci del menu a tendina: sfondo scuro, così si leggono */
+.scelta-lingua option { background: var(--sfondo); color: var(--testo); }
+/* La sigla (IT ▾) si vede solo sul telefono */
+.scelta-lingua { position: relative; }
+.scelta-lingua .sigla { display: none; }
+
+/* ---------- Effetto parallasse ---------- */
+/* Lo sfondo con i semi resta fermo dietro la pagina (position: fixed);
+   è comune.js a spostare i 3 livelli a velocità diverse. */
+.sfondo-parallasse {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;  /* non intralcia i clic */
+}
+
+.strato {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  will-change: transform; /* avvisa il browser: questo si muove, preparati */
+}
+
+.strato span {
+  position: absolute;
+  line-height: 1;
+  user-select: none;
+}
+
+/* Lo strato più lontano è sfocato: dà l'idea della profondità */
+.strato.sfocato { filter: blur(2px); }
+
+/* Le "luci" colorate dello strato in fondo: grandi cerchi molto sfumati
+   (la sfumatura la scrive comune.js: è più leggera di una sfocatura) */
+.strato .luce {
+  position: absolute;
+  border-radius: 50%;
+}
+
+/* Menu, contenuto e piè di pagina stanno davanti allo sfondo */
+main, #piede { position: relative; z-index: 1; }
+
+/* Il "titolo grande" (eroe) in cima a ogni pagina */
+.eroe {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Nelle pagine delle sezioni il titolo grande è un po' più basso */
+.eroe.piccolo { min-height: 40vh; }
+
+/* Il titolo: grande, spesso, con una sfumatura dal bianco alla menta */
+.eroe h1 {
+  font-size: clamp(2.4rem, 8vw, 4.6rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  margin: 10px 0 12px;
+  background: linear-gradient(180deg, #ffffff 30%, var(--accento) 130%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.eroe .sottotitolo { font-size: 1.15rem; max-width: 560px; margin: 0 auto; }
+
+/* L'icona della sezione dentro un "bollino" di vetro che brilla */
+.icona-eroe {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 84px;
+  height: 84px;
+  font-size: 2.6rem;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--bordo);
+  box-shadow: 0 0 40px rgba(52, 245, 197, 0.25);
+}
+
+/* Etichetta piccola sopra il titolo della Home */
+.etichetta-eroe {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accento);
+  background: rgba(52, 245, 197, 0.1);
+  border: 1px solid rgba(52, 245, 197, 0.3);
+}
+
+/* Il ventaglio con i 4 assi della Home (carte disegnate da noi).
+   Ogni carta è girata un po' di più della precedente, come in mano;
+   z-index fa stare ogni carta sopra quella alla sua sinistra. */
+/* margine sotto largo: le carte esterne, girate, scendono più in basso */
+.ventaglio { display: flex; justify-content: center; margin: 0 0 40px; }
+.ventaglio .carta {
+  width: 72px;
+  height: 102px;
+  margin: 0 -12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+.ventaglio .carta .angolo { font-size: 1.05rem; }
+.ventaglio .carta .centro { font-size: 2.5rem; }
+.ventaglio .carta:nth-child(1) { transform: rotate(-21deg) translateY(16px); z-index: 1; }
+.ventaglio .carta:nth-child(2) { transform: rotate(-7deg)  translateY(3px);  z-index: 2; }
+.ventaglio .carta:nth-child(3) { transform: rotate(7deg)   translateY(3px);  z-index: 3; }
+.ventaglio .carta:nth-child(4) { transform: rotate(21deg)  translateY(16px); z-index: 4; }
+
+/* Freccia che invita a scorrere */
+.scorri {
+  margin-top: 28px;
+  color: var(--accento);
+  font-size: 1.5rem;
+  animation: saltella 1.8s infinite;
+}
+
+@keyframes saltella {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(8px); }
+}
+
+/* Chi ha chiesto meno animazioni non vede la freccia saltellare */
+@media (prefers-reduced-motion: reduce) {
+  .scorri { animation: none; }
+}
+
+/* ---------- Contenuto centrale ---------- */
+main {
+  flex: 1;               /* occupa tutto lo spazio libero */
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+h1 { margin-top: 0; }
+
+.sottotitolo { color: var(--testo-tenue); }
+
+/* Riquadro "sezione in costruzione" nelle pagine ancora vuote */
+.in-costruzione {
+  padding: 24px;
+  border: 2px dashed var(--bordo);
+  border-radius: var(--raggio);
+  color: var(--testo-tenue);
+  text-align: center;
+  min-height: 70vh;  /* così anche le pagine vuote si scorrono e si vede la parallasse */
+  background: rgba(0, 0, 0, 0.15);
+}
+
+/* ---------- Schede della pagina iniziale ---------- */
+#schede {
+  display: grid;
+  /* Sul telefono e sui tablet: una striscia sotto l'altra, tutte uguali */
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+/* Striscia: icona a sinistra, titolo e testo a destra */
+@media (max-width: 999px) {
+  #schede .scheda {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 18px;
+    align-items: center;
+  }
+  #schede .icona-grande { grid-row: 1 / span 2; }
+  #schede .scheda h2 { margin-top: 0; align-self: end; }
+  #schede .scheda p { align-self: start; padding-right: 30px; }
+}
+
+/* Su schermi larghi: tutte e 5 in una riga, uguali.
+   La riga è un po' più larga del resto della pagina (fino a 1180px)
+   così le caselle non diventano troppo strette. */
+@media (min-width: 1000px) {
+  #schede {
+    grid-template-columns: repeat(5, 1fr);
+    width: min(1180px, 100vw - 48px);
+    margin-left: calc(50% - min(590px, 50vw - 24px));
+  }
+}
+
+.scheda {
+  position: relative;
+  display: block;
+  padding: 22px;
+  background: var(--sfondo-scheda);
+  border: 1px solid var(--bordo);
+  border-radius: var(--raggio);
+  color: var(--testo);
+  text-decoration: none;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+
+/* Al passaggio del mouse la scheda si solleva e si illumina */
+.scheda:hover {
+  transform: translateY(-6px);
+  border-color: rgba(52, 245, 197, 0.5);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35), 0 0 30px rgba(52, 245, 197, 0.15);
+}
+
+/* La freccia in alto a destra che "parte" al passaggio del mouse */
+.scheda::after {
+  content: "→";
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  color: var(--accento);
+  font-size: 1.3rem;
+  transition: transform 0.25s;
+}
+.scheda:hover::after { transform: translateX(4px); }
+
+.scheda h2 { margin: 14px 0 4px; color: var(--testo); font-size: 1.3rem; font-weight: 700; }
+
+.scheda p { margin: 0; color: var(--testo-tenue); }
+
+/* L'icona delle schede dentro un quadratino di vetro */
+.icona-grande {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  font-size: 1.8rem;
+  border-radius: 16px;
+  background: rgba(52, 245, 197, 0.1);
+  border: 1px solid rgba(52, 245, 197, 0.25);
+}
+
+/* ---------- Carte disegnate (usate in tutte le sezioni) ---------- */
+.mano {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0;
+}
+
+.carta {
+  position: relative;
+  width: 52px;
+  height: 74px;
+  background: #fdfcf7;
+  border-radius: 9px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.carta.rossa { color: #c8102e; }
+.carta.nera  { color: #111111; }
+
+/* Valore e seme piccoli nell'angolo in alto a sinistra */
+.carta .angolo {
+  position: absolute;
+  top: 4px;
+  left: 5px;
+  font-size: 0.85rem;
+  line-height: 1.05;
+  text-align: center;
+}
+
+/* Seme grande al centro */
+.carta .centro {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  padding-top: 10px;
+}
+
+/* ---------- Prontuario: schede apri/chiudi ---------- */
+.schede-prontuario { display: flex; flex-direction: column; gap: 14px; }
+
+.scheda-apribile {
+  background: var(--sfondo-scheda);
+  border: 1px solid var(--bordo);
+  border-radius: var(--raggio);
+  overflow: hidden;
+  box-shadow: var(--ombra);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.scheda-apribile[open] { border-color: rgba(52, 245, 197, 0.45); }
+
+/* Il titolo della scheda, quello che si tocca per aprirla */
+.scheda-apribile summary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  cursor: pointer;
+  list-style: none;          /* togliamo il triangolino standard... */
+}
+.scheda-apribile summary::-webkit-details-marker { display: none; }
+
+/* ...e mettiamo il nostro, a destra, che gira quando la scheda è aperta */
+.scheda-apribile summary::after {
+  content: "▸";
+  margin-left: auto;
+  color: var(--accento);
+  font-size: 1.3rem;
+  transition: transform 0.2s;
+}
+.scheda-apribile[open] summary::after { transform: rotate(90deg); }
+
+.scheda-apribile summary:hover { background: rgba(255, 255, 255, 0.04); }
+
+.scheda-apribile summary strong { display: block; font-size: 1.15rem; color: var(--accento); }
+.scheda-apribile summary small  { color: var(--testo-tenue); }
+
+.icona-scheda { font-size: 1.8rem; }
+
+.contenuto-scheda {
+  padding: 4px 18px 20px;
+  border-top: 1px solid var(--bordo);
+}
+
+.contenuto-scheda h3 {
+  color: var(--accento);
+  margin: 26px 0 8px;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Classifica dei punti */
+.classifica { padding-left: 0; list-style: none; counter-reset: punto; }
+
+.classifica li {
+  counter-increment: punto;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--bordo);
+}
+
+.classifica li p { margin: 4px 0 0; color: var(--testo-tenue); }
+
+.titolo-punto { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+
+/* Il numero del punto (1, 2, 3...) in un cerchietto oro */
+.titolo-punto::before {
+  content: counter(punto);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accento);
+  color: var(--sfondo);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.titolo-punto em { color: var(--testo-tenue); font-size: 0.9rem; }
+
+.frequenza {
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: var(--testo-tenue);
+  background: rgba(0, 0, 0, 0.25);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.sequenza-valori { font-weight: 700; letter-spacing: 0.05em; }
+
+/* Riquadro con un esempio pratico */
+.esempio {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin: 12px 0;
+}
+
+.etichetta { margin: 10px 0 0; font-size: 0.85rem; color: var(--testo-tenue); }
+
+/* Consiglio "da campione" */
+.consiglio {
+  border-left: 3px solid var(--accento);
+  padding: 8px 12px;
+  background: rgba(52, 245, 197, 0.08);
+  border-radius: 0 8px 8px 0;
+}
+
+/* Tavolo disegnato con 9 posti */
+.tavolo {
+  position: relative;
+  max-width: 540px;
+  height: 300px;
+  margin: 16px auto;
+}
+
+.tavolo .feltro {
+  position: absolute;
+  inset: 60px 70px;
+  border-radius: 999px;
+  background: radial-gradient(ellipse, #12a07a, #063a2c);
+  box-shadow: 0 0 50px rgba(52, 245, 197, 0.18), inset 0 0 30px rgba(0, 0, 0, 0.4);
+  border: 6px solid #5a3a1e;   /* bordo in legno */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.25);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.tavolo .posto {
+  position: absolute;
+  width: 70px;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 0.7rem;
+  line-height: 1.2;
+}
+
+.tavolo .posto b {
+  display: block;
+  margin: 0 auto 2px;
+  width: 44px;
+  height: 44px;
+  line-height: 40px;
+  border-radius: 50%;
+  background: var(--sfondo);
+  border: 2px solid var(--bordo);
+  font-size: 0.72rem;
+}
+
+.tavolo .posto.bottone b { background: var(--accento); color: var(--sfondo); border-color: var(--accento); }
+
+/* Posizione dei 9 posti intorno al tavolo, in senso orario.
+   Sono punti di un'ellisse, uno ogni 40 gradi, partendo dal
+   bottone in basso al centro. */
+.tavolo .p1 { left: 50.0%; top: 92.0%; }  /* BTN   - in basso */
+.tavolo .p2 { left: 24.3%; top: 82.2%; }  /* SB */
+.tavolo .p3 { left: 10.6%; top: 57.3%; }  /* BB */
+.tavolo .p4 { left: 15.4%; top: 29.0%; }  /* UTG */
+.tavolo .p5 { left: 36.3%; top: 10.5%; }  /* UTG+1 - in alto */
+.tavolo .p6 { left: 63.7%; top: 10.5%; }  /* MP    - in alto */
+.tavolo .p7 { left: 84.6%; top: 29.0%; }  /* LJ */
+.tavolo .p8 { left: 89.4%; top: 57.3%; }  /* HJ */
+.tavolo .p9 { left: 75.7%; top: 82.2%; }  /* CO */
+
+/* Passi della mano */
+.passi li { margin-bottom: 8px; }
+
+/* Elenco delle mosse e del glossario: parola in oro, spiegazione sotto */
+.mosse dt, .glossario dt { color: var(--accento); font-weight: 700; margin-top: 10px; }
+.mosse dd, .glossario dd { margin: 2px 0 0; color: var(--testo); }
+
+/* Tabella di confronto cash game / torneo */
+.tabella-scorrevole { overflow-x: auto; margin: 12px 0; } /* sul telefono scorre di lato */
+
+.confronto {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.confronto th, .confronto td {
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--bordo);
+}
+
+.confronto thead th { color: var(--accento); font-size: 1rem; }
+.confronto tbody th { color: var(--testo-tenue); font-weight: 600; white-space: nowrap; }
+
+/* Campo di ricerca del glossario */
+.cerca {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--bordo);
+  border-radius: 14px;
+}
+
+.cerca input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--testo);
+  font-size: 1rem;
+}
+
+.cerca:focus-within { border-color: var(--accento); }
+
+.nessun-risultato { color: var(--testo-tenue); font-style: italic; }
+
+/* ---------- Calcolatore ---------- */
+.calcolatore { display: grid; gap: 16px; }
+
+/* Su schermi larghi: scelte e carte a sinistra, risultato a destra (sempre visibile) */
+@media (min-width: 900px) {
+  .calcolatore { grid-template-columns: 1fr 380px; align-items: start; }
+  .calcolatore > .pannello { grid-column: 1; }
+  .colonna-destra { grid-column: 2; grid-row: 1 / span 2; }
+}
+
+.colonna-destra { display: grid; gap: 16px; align-content: start; }
+
+/* I riquadri: vetro smerigliato con angoli tondi e un'ombra morbida */
+.pannello {
+  background: var(--sfondo-scheda);
+  border: 1px solid var(--bordo);
+  border-radius: var(--raggio);
+  padding: 20px 22px;
+  box-shadow: var(--ombra);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  /* I riquadri passano DAVANTI al titolo in parallasse quando scorri */
+  position: relative;
+  z-index: 1;
+}
+
+.titolo-pannello {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--testo);
+  margin: 2px 0 14px;
+}
+.titolo-pannello small { color: var(--testo-tenue); font-weight: 400; }
+.pulsanti-scelta + .titolo-pannello { margin-top: 20px; }
+
+/* Pulsanti di scelta (fase, giocatori) */
+.pulsanti-scelta { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* Pulsanti secondari e di scelta: pillole di vetro */
+.pulsanti-scelta button,
+.pulsante-secondario {
+  min-width: 44px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--bordo);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--testo);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.pulsanti-scelta button:hover,
+.pulsante-secondario:hover:not(:disabled) {
+  border-color: rgba(52, 245, 197, 0.6);
+  background: rgba(52, 245, 197, 0.08);
+}
+.pulsanti-scelta button:active,
+.pulsante-secondario:active:not(:disabled) { transform: scale(0.97); }
+
+/* La scelta attiva: pillola menta piena */
+.pulsanti-scelta button[aria-pressed="true"] {
+  background: var(--accento);
+  color: var(--su-colore);
+  border-color: var(--accento);
+  box-shadow: 0 0 18px rgba(52, 245, 197, 0.35);
+}
+
+.pulsanti-mano { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.pulsante-secondario:disabled { opacity: 0.4; cursor: default; border-color: var(--bordo); }
+
+/* I posti delle carte scelte */
+.posti-carte { display: flex; flex-wrap: wrap; gap: 8px 28px; }
+.fila-posti { display: flex; gap: 6px; }
+
+.posto-carta {
+  width: 52px;
+  height: 74px;
+  border-radius: 7px;
+  display: inline-block;
+  padding: 0;
+  border: none;
+  background: none;
+}
+.posto-carta.vuoto { border: 2px dashed var(--accento); opacity: 0.7; }
+/* Posto del tavolo non ancora richiesto dalla fase: più tenue, ma si può riempire */
+.posto-carta.vuoto.prossimo { border-color: var(--bordo); opacity: 0.5; }
+
+/* Posto con il nome della fase sotto (Flop, Turn, River) */
+.posto-con-nome { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; }
+.posto-con-nome small { font-size: 0.7rem; color: var(--testo-tenue); }
+.posto-carta.pieno { cursor: pointer; }
+.posto-carta.pieno:hover .carta { outline: 2px solid #ff6b6b; }
+
+/* Piccolo "scossone" quando tutti i posti sono già pieni */
+.scossa { animation: scossa 0.35s; }
+@keyframes scossa {
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+.aiuto { font-size: 0.85rem; color: var(--testo-tenue); }
+
+/* Il mazzo da cui scegliere: 13 colonne (dall'Asso al 2), 4 file (i semi) */
+.mazzo-scelta {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  gap: 4px;
+}
+
+.mini-carta {
+  aspect-ratio: 5 / 7;
+  border: none;
+  border-radius: 5px;
+  background: #fdfcf7;
+  font: inherit;
+  font-weight: 700;
+  font-size: clamp(0.62rem, 2.2vw, 0.9rem);
+  line-height: 1.1;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  transition: transform 0.1s;
+}
+.mini-carta.rossa { color: #c8102e; }
+.mini-carta.nera  { color: #111111; }
+.mini-carta:hover:not(:disabled) { transform: translateY(-2px); }
+/* Carta già usata: sbiadita e non cliccabile */
+.mini-carta:disabled { opacity: 0.15; cursor: default; }
+
+/* Il risultato */
+.risultato { text-align: center; }
+.attesa { color: var(--testo-tenue); margin: 24px 0; }
+
+.percentuale-grande {
+  font-size: clamp(3rem, 12vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1;
+  margin: 6px 0 12px;
+}
+.percentuale-grande span { font-size: 0.5em; }
+
+/* Colori del giudizio */
+.ottima { color: var(--positivo); }
+.buona  { color: #b6e35a; }
+.media  { color: #fbbf24; }
+.debole { color: var(--negativo); }
+
+/* Barra vinci / pareggi / perdi */
+.barra-esito {
+  display: flex;
+  height: 12px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+}
+.barra-esito .vinci, .pallino.vinci { background: var(--positivo); }
+.barra-esito .pari,  .pallino.pari  { background: #fbbf24; }
+.barra-esito .perdi, .pallino.perdi { background: var(--negativo); }
+
+.dettaglio-esito { font-size: 0.85rem; color: var(--testo-tenue); }
+.pallino {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin: 0 4px 0 10px;
+}
+
+.giudizio { font-weight: 600; }
+.punto-attuale { margin: 14px 0; }
+.punto-attuale strong { color: var(--accento); }
+
+.risultato h3 { font-size: 0.95rem; color: var(--accento); margin: 18px 0 8px; text-align: left; }
+
+/* Distribuzione dei punti al river */
+.riga-punto {
+  display: grid;
+  grid-template-columns: 110px 1fr 52px;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  text-align: left;
+  margin: 3px 0;
+}
+.riga-punto .barra { height: 8px; background: rgba(0, 0, 0, 0.3); border-radius: 999px; overflow: hidden; }
+.riga-punto .barra span { display: block; height: 100%; background: var(--accento); }
+.riga-punto .valore { text-align: right; color: var(--testo-tenue); }
+
+.nota-calcolo { font-size: 0.75rem; color: var(--testo-tenue); margin-top: 16px; }
+
+/* Outs */
+.gruppo-outs { margin: 10px 0; }
+.gruppo-outs .etichetta { margin: 0 0 4px; }
+.gruppo-outs .mano { gap: 4px; margin: 0; }
+/* Nei gruppi di outs le carte sono più piccole */
+.gruppo-outs .carta { width: 34px; height: 48px; border-radius: 5px; }
+.gruppo-outs .carta .angolo { font-size: 0.65rem; top: 2px; left: 3px; }
+.gruppo-outs .carta .centro { font-size: 1.1rem; padding-top: 8px; }
+.numero-outs { font-size: 2rem; font-weight: 800; color: var(--accento); }
+
+/* Pot odds */
+.campi-pot { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.campi-pot label { font-size: 0.85rem; color: var(--testo-tenue); display: grid; gap: 4px; }
+.campi-pot input {
+  width: 100%;
+  padding: 9px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--bordo);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--testo);
+  font: inherit;
+  font-size: 1.05rem;
+}
+.campi-pot input:focus { outline: none; border-color: var(--accento); }
+
+.verdetto {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+.verdetto strong { display: block; font-size: 1.3rem; }
+.verdetto.si strong { color: var(--positivo); }
+.verdetto.no strong { color: var(--negativo); }
+.verdetto p { margin: 6px 0 0; font-size: 0.85rem; color: var(--testo-tenue); }
+
+/* Tabella delle 169 mani iniziali */
+.tabella-mani { margin-top: 16px; }
+
+.legenda-tabella { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 0.8rem; color: var(--testo-tenue); margin-bottom: 10px; }
+.campione { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; border: 2px solid; }
+.campione.s { border-color: #8fd3ff; }
+.campione.p { border-color: var(--accento); }
+.campione.o { border-color: transparent; background: rgba(255, 255, 255, 0.25); }
+
+.griglia-mani {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  gap: 2px;
+}
+
+.cella-mano {
+  aspect-ratio: 1;
+  border: none;
+  border-radius: 3px;
+  padding: 0;
+  font: inherit;
+  color: #10241c;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.05;
+  overflow: hidden;
+}
+.cella-mano b { font-size: clamp(0.5rem, 1.7vw, 0.8rem); }
+.cella-mano span { font-size: clamp(0.45rem, 1.4vw, 0.68rem); }
+.cella-mano.s { box-shadow: inset 0 0 0 2px rgba(143, 211, 255, 0.9); }
+.cella-mano.p { box-shadow: inset 0 0 0 2px var(--accento); }
+.cella-mano:hover { outline: 2px solid #fff; z-index: 1; }
+/* La mano che hai in questo momento nel calcolatore */
+.cella-mano.attuale { outline: 3px solid #fff; z-index: 2; transform: scale(1.12); }
+
+/* ---------- Pulsante principale (oro), usato in più sezioni ---------- */
+/* Pillola corallo con una leggera sfumatura e un alone: "toccami!" */
+.pulsante-principale {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px 22px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, var(--corallo), var(--corallo-2));
+  color: var(--su-colore);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(255, 102, 89, 0.35);
+  transition: transform 0.15s, box-shadow 0.2s, filter 0.2s;
+}
+.pulsante-principale:hover { transform: translateY(-2px); filter: brightness(1.06); box-shadow: 0 12px 30px rgba(255, 102, 89, 0.45); }
+.pulsante-principale:active { transform: scale(0.97); }
+.pulsanti-mano.centrati { justify-content: center; }
+
+/* ---------- Allenamento ---------- */
+main > .pannello + .pannello { margin-top: 16px; }
+
+/* Le schede di scelta dei 5 allenamenti */
+.scelta-quiz {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+  gap: 10px;
+}
+
+.scheda-quiz {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px;
+  text-align: left;
+  border-radius: 14px;
+  border: 1px solid var(--bordo);
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--testo);
+  font: inherit;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s;
+}
+.scheda-quiz:hover { transform: translateY(-2px); border-color: var(--accento); }
+.scheda-quiz.scelta { border-color: var(--accento); background: rgba(52, 245, 197, 0.12); }
+.scheda-quiz strong { color: var(--accento); font-size: 1.05rem; }
+.scheda-quiz small { color: var(--testo-tenue); line-height: 1.35; }
+.scheda-quiz .record { margin-top: auto; padding-top: 6px; font-size: 0.8rem; color: var(--testo-tenue); }
+
+.quiz { min-height: 50vh; scroll-margin-top: 70px; }
+
+/* Testata: tipo di domanda, numero, punti, serie */
+.testata-quiz {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 16px;
+  font-size: 0.9rem;
+  color: var(--testo-tenue);
+}
+.testata-quiz strong { color: var(--testo); }
+.tipo-domanda { color: var(--accento); font-weight: 700; margin-right: auto; }
+.in-serie { color: #ff9f43; font-weight: 700; }
+
+.avanzamento {
+  height: 6px;
+  margin: 10px 0 16px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+.avanzamento span { display: block; height: 100%; background: var(--accento); transition: width 0.3s; }
+
+.domanda { font-size: 1.1rem; font-weight: 600; margin: 4px 0 10px; }
+.domanda small { display: block; font-size: 0.8rem; font-weight: 400; color: var(--testo-tenue); }
+
+.giocatori-quiz { display: flex; flex-wrap: wrap; gap: 8px 28px; }
+
+/* Le risposte */
+.opzioni { display: grid; gap: 8px; margin-top: 18px; }
+.opzioni.riga    { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
+.opzioni.griglia { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+.opzioni.colonna { grid-template-columns: 1fr; }
+
+.opzione {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  text-align: left;
+  border-radius: 14px;
+  border: 1px solid var(--bordo);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--testo);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.opzione:hover:not(:disabled) { border-color: var(--accento); }
+.opzione:disabled { cursor: default; opacity: 0.55; }
+.opzione.giusta   { opacity: 1; border-color: var(--positivo); background: rgba(94, 224, 138, 0.18); }
+.opzione.sbagliata { opacity: 1; border-color: var(--negativo); background: rgba(255, 138, 122, 0.18); }
+
+/* Il numerino del tasto (1, 2, 3...) per chi usa la tastiera */
+.opzione .tasto {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--testo-tenue);
+}
+.opzione .tasto:empty { display: none; }
+
+/* La spiegazione dopo la risposta */
+.spiegazione {
+  margin-top: 18px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.22);
+  border-left: 4px solid var(--accento);
+}
+.spiegazione.si { border-left-color: var(--positivo); }
+.spiegazione.no { border-left-color: var(--negativo); }
+.esito-risposta { font-size: 1.2rem; font-weight: 800; margin: 0 0 8px; }
+.spiegazione.si .esito-risposta { color: var(--positivo); }
+.spiegazione.no .esito-risposta { color: var(--negativo); }
+.spiegazione .pulsante-principale { margin-top: 12px; }
+.formula { font-size: 1.05rem; }
+
+.riga-spiegazione { margin: 8px 0; }
+.riga-spiegazione.vincente strong { color: var(--accento); }
+
+/* Carte piccole (spiegazioni, outs) */
+.mano.piccola { gap: 4px; margin: 4px 0; }
+.mano.piccola .carta { width: 34px; height: 48px; border-radius: 5px; }
+.mano.piccola .carta .angolo { font-size: 0.65rem; top: 2px; left: 3px; }
+.mano.piccola .carta .centro { font-size: 1.1rem; padding-top: 8px; }
+
+/* Schermata finale */
+.finale { text-align: center; padding: 10px 0; }
+.icona-livello { font-size: 4rem; line-height: 1.2; }
+.punteggio-finale { font-size: 3rem; font-weight: 800; margin: 0; color: var(--testo-tenue); }
+.punteggio-finale strong { color: var(--accento); }
+.nome-livello { font-size: 1.2rem; margin: 4px 0; }
+
+/* ---------- Moduli (Diario e Serate) ---------- */
+.campi {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.modulo label, .campo {
+  display: grid;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: var(--testo-tenue);
+}
+.modulo label small { font-size: 0.75rem; }
+.modulo label[hidden] { display: none; }
+.campo-largo { margin-top: 12px; }
+
+.modulo input, .modulo select, .modulo textarea, .campo-testo {
+  width: 100%;
+  padding: 9px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--bordo);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--testo);
+  font: inherit;
+  font-size: 1rem;
+}
+.modulo select option { background: var(--sfondo); }
+.modulo textarea { resize: vertical; }
+.modulo input:focus, .modulo select:focus, .modulo textarea:focus, .campo-testo:focus {
+  outline: none;
+  border-color: var(--accento);
+}
+/* Il calendario del campo data in tema scuro */
+.modulo input[type="date"] { color-scheme: dark; }
+
+.umore { border: none; padding: 0; margin: 14px 0 0; }
+.umore legend { font-size: 0.85rem; color: var(--testo-tenue); margin-bottom: 4px; }
+.umore button { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 10px; }
+.umore button small { font-size: 0.7rem; font-weight: 400; }
+.emoji-umore { font-size: 1.5rem; line-height: 1; }
+
+.anteprima-risultato { min-height: 1.5em; margin: 12px 0 0; }
+
+/* Colori dei risultati: verde in attivo, rosso in passivo */
+.positivo { color: var(--positivo); }
+.negativo { color: var(--negativo); }
+
+/* ---------- Diario: statistiche ---------- */
+.piastrelle {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+}
+.piastrella {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.22);
+}
+.piastrella .nome { font-size: 0.8rem; color: var(--testo-tenue); }
+.piastrella .valore { font-size: 1.7rem; font-weight: 800; line-height: 1.2; }
+.piastrella .nota { font-size: 0.75rem; color: var(--testo-tenue); }
+
+.sottotitolo-pannello { font-size: 0.9rem; color: var(--testo-tenue); font-weight: 600; margin: 20px 0 6px; }
+
+.estremi p { margin: 6px 0; }
+.estremi small, .pannello p small { color: var(--testo-tenue); }
+
+.confronto.stretta { min-width: 300px; }
+
+/* Il grafico */
+.grafico { position: relative; width: 100%; }
+.grafico svg { display: block; overflow: visible; }
+.grafico .guida { stroke: rgba(255, 255, 255, 0.08); stroke-width: 1; }
+.grafico .linea-zero { stroke: var(--testo-tenue); stroke-width: 1; stroke-dasharray: 4 4; opacity: 0.6; }
+.grafico .linea-grafico { fill: none; stroke: var(--accento); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.grafico .pallino-grafico { fill: var(--accento); stroke: var(--sfondo-scheda); stroke-width: 2; }
+.grafico .evidenzia { fill: var(--testo); stroke: var(--accento); stroke-width: 2; pointer-events: none; }
+.grafico .zona-tocco { fill: transparent; cursor: pointer; }
+.grafico .etichetta-asse { fill: var(--testo-tenue); font-size: 11px; }
+
+/* Il fumetto con i dettagli di una sessione */
+.fumetto {
+  position: absolute;
+  z-index: 3;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: var(--vetro-forte);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--bordo);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  font-size: 0.8rem;
+  line-height: 1.45;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ---------- Diario: elenco delle sessioni ---------- */
+.elenco-sessioni { display: grid; gap: 10px; margin-top: 12px; }
+
+.sessione {
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid transparent;
+}
+.sessione:hover { border-color: var(--bordo); }
+
+.testata-sessione { display: flex; align-items: center; gap: 12px; }
+.testata-sessione small { display: block; color: var(--testo-tenue); }
+.tipo-sessione { font-size: 1.6rem; }
+.risultato-sessione { margin-left: auto; font-size: 1.25rem; font-weight: 800; white-space: nowrap; }
+
+.testo-sessione { margin: 8px 0 0; font-size: 0.9rem; white-space: pre-line; }
+.testo-sessione b { color: var(--accento); font-weight: 600; }
+
+.azioni-sessione { display: flex; gap: 8px; margin-top: 10px; }
+
+.pulsante-piccolo {
+  padding: 5px 10px;
+  border-radius: 7px;
+  border: 1px solid var(--bordo);
+  background: transparent;
+  color: var(--testo-tenue);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.pulsante-piccolo:hover { color: var(--testo); border-color: var(--accento); }
+.pulsante-piccolo.pericolo { color: #fff; background: #b23a2e; border-color: var(--negativo); }
+
+/* Il pulsante "Carica una copia" è un'etichetta che apre la scelta del file */
+.carica-file { display: inline-flex; align-items: center; }
+
+/* ---------- Serate: il timer dei bui ---------- */
+.timer { text-align: center; }
+.timer.in-pausa { border-color: #8fd3ff; }
+
+.riga-timer { display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; }
+.nome-livello-timer { color: var(--accento); font-weight: 700; font-size: 1.05rem; }
+.stato-timer { color: var(--testo-tenue); }
+.stato-timer.acceso { color: var(--positivo); }
+
+.bui-grandi {
+  font-size: clamp(2.2rem, 9vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-top: 10px;
+}
+.bui-grandi span { color: var(--testo-tenue); font-weight: 400; }
+.timer.in-pausa .bui-grandi { font-size: clamp(1.5rem, 5vw, 2.4rem); color: #8fd3ff; }
+.ante-grande { font-size: 1.2rem; color: var(--testo-tenue); }
+
+.tempo-grande {
+  font-size: clamp(4rem, 20vw, 8rem);
+  font-weight: 800;
+  line-height: 1;
+  margin: 10px 0;
+  font-variant-numeric: tabular-nums;   /* le cifre non "ballano" mentre cambiano */
+  color: var(--accento);
+  text-shadow: 0 0 40px rgba(52, 245, 197, 0.35);
+}
+.tempo-grande.ultimo-minuto { color: var(--negativo); animation: lampeggia 1s infinite; }
+@keyframes lampeggia { 50% { opacity: 0.55; } }
+@media (prefers-reduced-motion: reduce) { .tempo-grande.ultimo-minuto { animation: none; } }
+
+.barra-tempo { height: 8px; border-radius: 999px; background: rgba(0, 0, 0, 0.3); overflow: hidden; max-width: 520px; margin: 0 auto; }
+.barra-tempo span { display: block; height: 100%; background: var(--accento); }
+
+.prossimo-livello { margin: 12px 0 4px; color: var(--testo-tenue); }
+.prossimo-livello strong { color: var(--testo); }
+.info-tavolo { margin: 0 0 14px; font-size: 0.9rem; color: var(--testo-tenue); }
+.info-tavolo strong { color: var(--testo); }
+
+.comandi-timer { display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; }
+.comandi-timer.piccoli { margin-top: 12px; gap: 6px; }
+.comandi-timer .pulsante-secondario { font-size: 1.3rem; padding: 10px 16px; }
+.pulsante-principale.grande { font-size: 1.2rem; padding: 14px 30px; min-width: 170px; }
+
+/* Schermo intero: tutto più grande, per vederlo da lontano (TV, tablet) */
+.timer:fullscreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background:
+    radial-gradient(900px 600px at 0% 0%, rgba(52, 245, 197, 0.18), transparent 60%),
+    radial-gradient(800px 500px at 100% 100%, rgba(255, 122, 89, 0.14), transparent 60%),
+    linear-gradient(165deg, var(--sfondo), var(--sfondo-2));
+  padding: 4vh 4vw;
+  border: none;
+  border-radius: 0;
+}
+.timer:fullscreen .bui-grandi { font-size: 12vh; }
+.timer:fullscreen .ante-grande { font-size: 4vh; }
+.timer:fullscreen .tempo-grande { font-size: 26vh; }
+.timer:fullscreen .prossimo-livello, .timer:fullscreen .info-tavolo { font-size: 3vh; }
+.timer:fullscreen .barra-tempo { max-width: 70vw; height: 1.4vh; }
+
+/* ---------- Serate: giocatori ---------- */
+.aggiungi-giocatore { display: flex; gap: 8px; }
+.aggiungi-giocatore .campo-testo { flex: 1; min-width: 0; }
+
+.conto-fiches { margin: 12px 0; font-size: 0.9rem; color: var(--testo-tenue); }
+.conto-fiches strong { color: var(--testo); }
+.conto-fiches .evidenza { color: var(--accento); }
+
+.elenco-giocatori { display: grid; gap: 6px; }
+
+.giocatore {
+  display: grid;
+  grid-template-columns: 40px 1fr auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.2);
+}
+.giocatore.fuori { opacity: 0.6; }
+.giocatore.vincitore { opacity: 1; background: rgba(52, 245, 197, 0.15); border: 1px solid var(--accento); }
+
+.posizione-giocatore { text-align: center; font-weight: 800; color: var(--accento); font-size: 1.1rem; }
+.nome-giocatore { font-weight: 600; overflow-wrap: anywhere; }
+.nome-giocatore small { display: block; font-weight: 400; font-size: 0.75rem; color: var(--testo-tenue); }
+
+.fiches-giocatore { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--testo-tenue); }
+.fiches-giocatore input { width: 110px; padding: 6px 8px; text-align: right; }
+.azioni-giocatore { display: flex; gap: 4px; }
+
+/* Sul telefono azioni e fiches vanno sotto al nome */
+@media (max-width: 560px) {
+  .giocatore { grid-template-columns: 34px 1fr; }
+  .fiches-giocatore, .azioni-giocatore { grid-column: 2; }
+}
+
+/* ---------- Serate: tavoli e posti ---------- */
+.avviso-tavoli { margin: 12px 0; padding: 10px 12px; border-radius: 14px; background: rgba(0, 0, 0, 0.2); font-size: 0.9rem; }
+.avviso-tavoli:empty { display: none; }
+/* Quando c'è qualcosa da fare (spostare, chiudere un tavolo) il riquadro si colora d'oro */
+.avviso-tavoli.da-fare { border: 1px solid var(--accento); background: rgba(52, 245, 197, 0.12); }
+.avviso-tavoli ul { margin: 6px 0; padding-left: 20px; }
+.avviso-tavoli .pulsanti-mano { margin-top: 8px; align-items: center; }
+.avviso-tavoli select { width: auto; max-width: 100%; }
+
+.elenco-tavoli { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(270px, 100%), 1fr)); gap: 10px; }
+.scheda-tavolo { padding: 10px 12px; border-radius: var(--raggio); background: rgba(0, 0, 0, 0.2); border: 1px solid var(--bordo); }
+.scheda-tavolo.in-attesa { border-style: dashed; }
+.scheda-tavolo.finale { border-color: var(--accento); }
+.testata-tavolo { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.testata-tavolo .conto-posti { margin-left: auto; color: var(--testo-tenue); font-size: 0.85rem; }
+
+.posto {
+  display: grid;
+  grid-template-columns: 26px 1fr minmax(0, 150px);
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+.posto.libero { color: var(--testo-tenue); opacity: 0.55; }
+.numero-posto { text-align: center; font-weight: 700; color: var(--accento); }
+.posto .nome-al-posto { font-weight: 600; overflow-wrap: anywhere; }
+.modulo .posto select { padding: 4px 6px; font-size: 0.8rem; }
+
+/* ---------- Serate: tabella dei livelli ---------- */
+.tabella-livelli { min-width: 460px; }
+.tabella-livelli td, .tabella-livelli th { padding: 4px 6px; vertical-align: middle; }
+.tabella-livelli input { width: 100%; min-width: 64px; padding: 6px 8px; }
+.tabella-livelli tr.livello-attuale { background: rgba(52, 245, 197, 0.14); }
+.tabella-livelli tr.livello-attuale th { color: var(--accento); }
+.tabella-livelli tr.livello-passato { opacity: 0.5; }
+.tabella-livelli .riga-pausa td { color: #8fd3ff; }
+
+/* ---------- Piè di pagina ---------- */
+#piede {
+  padding: 16px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--testo-tenue);
+  border-top: 1px solid var(--bordo);
+}
+
+#piede p { margin: 4px 0; }
+#piede a { color: var(--accento); text-decoration: none; }
+#piede a:hover { text-decoration: underline; }
+
+/* Pagina Info e privacy: testo comodo da leggere */
+.testo-info { max-width: 760px; margin: 0 auto 16px; line-height: 1.6; }
+.testo-info li { margin: 6px 0; }
+
+/* ---------- Telefono (schermi stretti) ---------- */
+/* Schermi medi (tablet, finestre strette): la lingua si vede solo come
+   sigla (DE ▾); il menu a tendina vero c'è lo stesso, trasparente,
+   sopra la sigla: toccandola si apre */
+@media (max-width: 1100px) {
+  .scelta-lingua .icona { display: none; }
+  .scelta-lingua .sigla {
+    display: block;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--bordo);
+    background: rgba(255, 255, 255, 0.06);
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .scelta-lingua select { position: absolute; inset: 0; width: 100%; opacity: 0; }
+}
+
+/* Telefono e tablet: il menu mostra solo le icone, per stare in una riga
+   in tutte le lingue (in tedesco e francese i nomi sono lunghi) */
+@media (max-width: 900px) {
+  #menu .voci .nome { display: none; }
+  #menu .voci a { font-size: 1.3rem; padding: 6px 5px; }
+  #menu { gap: 8px; }
+}
+
+/* Telefono: del logo resta solo la bussola, così il menu sta in una riga */
+@media (max-width: 560px) {
+  #menu .sigla-logo { display: none; }
+  #menu .logo img { width: 32px; height: 32px; }
+}
+
+/* Telefoni molto stretti (320px): icone del menu un po' più piccole */
+@media (max-width: 360px) {
+  #menu { padding: 10px 10px; gap: 4px; }
+  #menu .voci { gap: 0; }
+  #menu .voci a { font-size: 1.15rem; padding: 6px 4px; }
+  .scelta-lingua .sigla { padding: 6px 8px; }
+}
+
+/* ---------- Telefono: tasti più comodi da toccare col dito ---------- */
+@media (max-width: 560px) {
+  /* I pulsanti piccoli delle Serate (+1 min, Suono, ✖ ...) */
+  .pulsante-piccolo { min-height: 40px; padding: 8px 12px; }
+
+  /* Il mazzo del Calcolatore: invece di 13 carte minuscole per riga,
+     ogni seme va su 2 righe da 7 (A K Q J 10 9 8 / 7 6 5 4 3 2).
+     Le carte diventano grandi il doppio e si toccano bene. */
+  .mazzo-scelta { grid-template-columns: repeat(7, 1fr); gap: 5px; }
+  /* Il 7 (8ª carta di ogni seme) e l'Asso (1ª) vanno sempre a capo */
+  .mazzo-scelta .mini-carta:nth-child(13n + 1),
+  .mazzo-scelta .mini-carta:nth-child(13n + 8) { grid-column-start: 1; }
+  .mini-carta { font-size: 1rem; border-radius: 7px; }
+
+  /* La tabella delle 169 mani: caselle da almeno 30px, scritte leggibili.
+     Se non ci sta tutta, la tabella scorre di lato dentro il suo riquadro. */
+  .griglia-mani {
+    grid-template-columns: repeat(13, minmax(30px, 1fr));
+    overflow-x: auto;
+    padding: 4px 2px;
+  }
+  .cella-mano b { font-size: 0.7rem; }
+  .cella-mano span { font-size: 0.58rem; }
+}

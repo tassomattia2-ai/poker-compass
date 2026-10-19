@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Logo di Poker Compass (P.C.): una bussola con l'ago a forma di picche ♠.
+       Disegnato da noi. Si usa nel menu e come icona della scheda del browser. -->
+  <defs>
+    <linearGradient id="anello" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#34f5c5"/>
+      <stop offset="1" stop-color="#ff7a59"/>
+    </linearGradient>
+  </defs>
+  <!-- Il quadrante: fondo smeraldo scuro e bordo sfumato menta → corallo -->
+  <circle cx="32" cy="32" r="28.5" fill="#03251c" stroke="url(#anello)" stroke-width="5"/>
+  <!-- Le 4 tacche dei punti cardinali -->
+  <g stroke="#e6fff7" stroke-width="2.5" stroke-linecap="round" opacity="0.55">
+    <line x1="32" y1="9.5" x2="32" y2="13.5"/>
+    <line x1="54.5" y1="32" x2="50.5" y2="32"/>
+    <line x1="32" y1="54.5" x2="32" y2="50.5"/>
+    <line x1="9.5" y1="32" x2="13.5" y2="32"/>
+  </g>
+  <!-- L'ago, un po' inclinato: in alto una picche menta, in basso la punta corallo -->
+  <g transform="rotate(20 32 32)">
+    <path fill="#ff7a59" d="M29.6 31 L34.4 31 L32 54 Z"/>
+    <path fill="#34f5c5" d="M32 7 C28 12.5 20.5 17 20.5 23.5 C20.5 28.5 26 30 29.6 27 L28.4 32.5 L35.6 32.5 L34.4 27 C38 30 43.5 28.5 43.5 23.5 C43.5 17 36 12.5 32 7 Z"/>
+    <!-- Il perno, sul gambo della picche -->
+    <circle cx="32" cy="32.5" r="2" fill="#e6fff7"/>
+  </g>
+</svg>

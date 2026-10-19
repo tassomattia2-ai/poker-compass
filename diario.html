@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Il titolo della scheda lo scrive comune.js -->
+  <title>Poker Compass</title>
+  <!-- Le traduzioni: deve essere il primo script della pagina -->
+  <script src="lingua.js"></script>
+  <!-- L'icona nella scheda del browser: il logo (bussola con l'ago a picche) -->
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<!-- data-pagina dice a comune.js in quale sezione siamo -->
+<body data-pagina="diario">
+
+  <!-- Qui comune.js disegna il menu -->
+  <header id="menu"></header>
+
+  <main>
+    <!-- Qui comune.js scrive icona, nome e descrizione della sezione -->
+    <section class="eroe piccolo" id="titolo-sezione"></section>
+
+    <!-- ===== 1. Le statistiche e il grafico ===== -->
+    <section class="pannello" id="statistiche">
+      <!-- Lo riempie diario.js -->
+    </section>
+
+    <!-- ===== 2. Il modulo per annotare una sessione ===== -->
+    <section class="pannello">
+      <h2 data-t class="titolo-pannello" id="titolo-modulo">✍️ Nuova sessione</h2>
+      <form id="modulo-sessione" class="modulo" autocomplete="off">
+        <!-- Se stiamo modificando una sessione, qui c'è il suo numero -->
+        <input type="hidden" id="campo-id">
+
+        <div class="campi">
+          <label><span data-t>Data</span>
+            <input type="date" id="campo-data" required>
+          </label>
+          <label><span data-t>Tipo di partita</span>
+            <select id="campo-tipo">
+              <option data-t value="cash">♠ Cash game</option>
+              <option data-t value="torneo">🎟️ Torneo</option>
+              <option data-t value="serata">🏠 Serata tra amici</option>
+            </select>
+          </label>
+          <label><span data-t>Dove</span>
+            <input type="text" id="campo-luogo" placeholder="es. Casa di Luca" maxlength="60" data-t-placeholder>
+          </label>
+          <label><span data-t>Quanto hai giocato</span> <small data-t>(ore)</small>
+            <input type="number" id="campo-ore" min="0" max="48" step="0.25" inputmode="decimal" placeholder="es. 3,5" data-t-placeholder>
+          </label>
+          <label><span data-t>Fiches all'inizio</span> <small data-t>(o costo del torneo)</small>
+            <input type="number" id="campo-entrata" min="0" step="any" inputmode="decimal" required placeholder="es. 1000" data-t-placeholder>
+          </label>
+          <label><span data-t>Fiches alla fine</span> <small data-t>(o premio in fiches)</small>
+            <input type="number" id="campo-uscita" min="0" step="any" inputmode="decimal" required placeholder="es. 1450" data-t-placeholder>
+          </label>
+          <!-- Solo per i tornei: lo mostra diario.js -->
+          <label class="solo-torneo"><span data-t>Posizione finale</span>
+            <input type="number" id="campo-posizione" min="1" step="1" inputmode="numeric" placeholder="es. 3" data-t-placeholder>
+          </label>
+          <label class="solo-torneo"><span data-t>Iscritti</span>
+            <input type="number" id="campo-iscritti" min="2" step="1" inputmode="numeric" placeholder="es. 24" data-t-placeholder>
+          </label>
+        </div>
+
+        <!-- Lo stato d'animo: aiuta a capire quando giochi meglio -->
+        <fieldset class="umore">
+          <legend data-t>Come stavi al tavolo?</legend>
+          <div class="pulsanti-scelta" id="scelta-umore" role="radiogroup" aria-label="Umore" data-t-aria></div>
+        </fieldset>
+
+        <label class="campo-largo"><span data-t>Mani da rivedere</span>
+          <textarea id="campo-mani" rows="3" maxlength="2000"
+            placeholder="es. A♠K♠ al bottone, flop Q♠J♠2♥: ho chiamato, forse era meglio rilanciare…" data-t-placeholder></textarea>
+        </label>
+        <label class="campo-largo"><span data-t>Note</span>
+          <textarea id="campo-note" rows="2" maxlength="2000"
+            placeholder="es. Tavolo molto aggressivo, ho perso concentrazione dopo la pausa." data-t-placeholder></textarea>
+        </label>
+
+        <p class="anteprima-risultato" id="anteprima-risultato" aria-live="polite"></p>
+
+        <div class="pulsanti-mano">
+          <button data-t type="submit" class="pulsante-principale" id="salva-sessione">💾 Salva sessione</button>
+          <button data-t type="button" class="pulsante-secondario" id="annulla-modifica" hidden>Annulla modifica</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ===== 3. L'elenco delle sessioni ===== -->
+    <section class="pannello">
+      <h2 data-t class="titolo-pannello">📚 Le tue sessioni</h2>
+      <div class="pulsanti-scelta" id="filtro-tipo" role="radiogroup" aria-label="Filtra per tipo" data-t-aria>
+        <button data-t type="button" data-filtro="tutte">Tutte</button>
+        <button data-t type="button" data-filtro="cash">♠ Cash</button>
+        <button data-t type="button" data-filtro="torneo">🎟️ Tornei</button>
+        <button data-t type="button" data-filtro="serata">🏠 Serate</button>
+      </div>
+      <div id="elenco-sessioni" class="elenco-sessioni">
+        <!-- Lo riempie diario.js -->
+      </div>
+    </section>
+
+    <!-- ===== 4. Copia di sicurezza ===== -->
+    <section class="pannello">
+      <h2 data-t class="titolo-pannello">🔒 Copia di sicurezza</h2>
+      <p data-t class="aiuto">Il diario è salvato <strong>solo in questo browser</strong>, su questo dispositivo.
+        Ogni tanto salva il diario in un file: se cambi computer o cancelli i dati del browser, lo ripristini da qui.</p>
+      <div class="pulsanti-mano">
+        <button data-t type="button" class="pulsante-secondario" id="esporta">💾 Salva il diario in un file</button>
+        <label class="pulsante-secondario carica-file"><span data-t>📂 Ripristina il diario da un file</span>
+          <input type="file" id="importa" accept="application/json,.json" hidden>
+        </label>
+      </div>
+      <p class="aiuto" id="esito-copia" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <!-- Qui comune.js disegna il piè di pagina con l'avviso -->
+  <footer id="piede"></footer>
+
+  <script src="comune.js"></script>
+  <script src="diario.js"></script>
+</body>
+</html>
