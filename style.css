@@ -770,6 +770,9 @@ h1 { margin-top: 0; }
 .posto-con-nome { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; }
 .posto-con-nome small { font-size: 0.7rem; color: var(--testo-tenue); }
 .posto-carta.pieno { cursor: pointer; }
+/* La carta scelta riempie il suo posto (senza questa riga restava "schiacciata"
+   a zero e si vedevano solo i simboli, senza il fondo bianco) */
+.posto-carta .carta { display: block; }
 .posto-carta.pieno:hover .carta { outline: 2px solid #ff6b6b; }
 
 /* Piccolo "scossone" quando tutti i posti sono già pieni */
