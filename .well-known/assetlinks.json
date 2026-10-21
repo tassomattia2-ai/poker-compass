@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "it.pokercompass.app",
+        "sha256_cert_fingerprints": ["E5:F4:E2:A9:AA:9B:13:6D:81:4E:26:32:8A:29:95:55:1C:50:EB:6F:A9:37:73:B4:2B:5B:8F:F2:1E:D3:2E:01"]
+      }
+    }]
